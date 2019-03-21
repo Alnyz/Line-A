@@ -26,12 +26,3 @@ class MainBots(object):
 		self.poll.addOpInterruptWithDict(handler)
 		while True:
 			self.poll.trace()
-	
-	def filters(self,
-				message,
-				command=None,
-				from_=None,
-				):
-		msg = message
-		if msg.text:
-			return tuple(command, from_)
