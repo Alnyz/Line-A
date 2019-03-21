@@ -57,7 +57,7 @@ init.run(handler=message_handler)
 
 ## Run your bot
 ```bash
-$ cd X
+$ cd 
 $ cd bots
 $ python3 bot.py
 ```
