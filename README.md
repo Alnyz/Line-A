@@ -17,7 +17,7 @@
  
      `pip3 install linepy`
 
-* install requrements attached
+* install requirements attached
 
      `pip3 install -r requirements.txt`
      
