@@ -10,7 +10,7 @@
 - [x] Including MultiThread
 - [x] Simply login
 - [x] More than fasted
-- [x] Included Decorator as soon as possible
+- [x] Included simple Decorator
 
 ## Installing Linepy
 * install [Linepy](https://pypi.org/project/linepy/3.0.8/) from [Pypi](pypi.org) not necessary
