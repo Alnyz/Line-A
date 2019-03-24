@@ -10,7 +10,7 @@
 - [x] Including MultiThread
 - [x] Simply login
 - [x] More than fasted
-- [ ] Included Decorator as soon as possible
+- [x] Included Decorator as soon as possible
 
 ## Installing Linepy
 * install [Linepy](https://pypi.org/project/linepy/3.0.8/) from [Pypi](pypi.org) not necessary
@@ -69,3 +69,6 @@ $ python3 bot.py
 
 ## Thanks to:
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
+
+
+### TODO: if you have any idea or found some little bug, free for report to Author
