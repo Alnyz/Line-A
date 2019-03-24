@@ -63,6 +63,8 @@ class Models(Object):
         oldList = {'name': self.genTempFile('file'),'ver': '1.0'}
         if returnAs not in ['json','b64','default']:
             raise Exception('Invalid parameter returnAs')
+        if 'name' in newList and not newList['name']:
+            newList['name'] = oldList['name']
         oldList.update(newList)
         if 'range' in oldList:
             new_range='bytes 0-%s\/%s' % ( str(oldList['range']-1), str(oldList['range']) )

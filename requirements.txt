@@ -3,3 +3,5 @@ requests
 rsa
 PyQRCode
 threading
+pymongo
+pymongo[srv]

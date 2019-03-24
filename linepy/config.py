@@ -28,15 +28,32 @@ class Config(object):
         'LINE_SERVICES': '1459630796'
     }
 
-    APP_TYPE    = "IOS"
-    APP_VER     = '8.14.5'
+    APP_VERSION = {
+        'ANDROID': '8.14.2',
+        'IOS': '8.14.5',
+        'ANDROIDLITE': '2.1.0',
+        'BIZANDROID': '1.7.2',
+        'BIZIOS': '1.7.5',
+        'BIZWEB': '1.0.22',
+        'DESKTOPWIN': '5.9.0',
+        'DESKTOPMAC': '5.9.0',
+        'IOSIPAD': '8.14.2',
+        'CHROMEOS': '2.1.5',
+        'WIN10': '5.5.5',
+        'DEFAULT': '8.11.0'
+    }
+
+    APP_TYPE    = 'IOS'
+    APP_VER     = APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
     CARRIER     = '51089, 1-0'
     SYSTEM_NAME = 'FDLRCN'
     SYSTEM_VER  = '7.0.0'
     IP_ADDR     = '8.8.8.8'
     EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
-    def __init__(self):
-        #sniff chrome headers and use those instead, because these will get you messagebanned
-        self.USER_AGENT = 'Line/%s' % self.APP_VER
+    def __init__(self, appType=None):
+        if appType:
+            self.APP_TYPE = appType
+            self.APP_VER = self.APP_VERSION[self.APP_TYPE] if self.APP_TYPE in self.APP_VERSION else self.APP_VERSION['DEFAULT']
         self.APP_NAME = '%s\t%s\t%s\t%s' % (self.APP_TYPE, self.APP_VER, self.SYSTEM_NAME, self.SYSTEM_VER)
+        self.USER_AGENT = 'Line/%s' % self.APP_VER

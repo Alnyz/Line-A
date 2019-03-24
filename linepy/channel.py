@@ -45,7 +45,7 @@ class Channel(object):
         return self.client.issueChannelToken(channelId)
 
     @loggedIn
-    def getChannelInfo(self, channelId, locale='EN'):
+    def getChannelInfo(self, channelId, locale='ID'):
         return self.client.getChannelInfo(channelId, locale)
 
     @loggedIn

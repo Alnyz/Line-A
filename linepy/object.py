@@ -58,6 +58,19 @@ class Object(object):
             raise Exception('You should install FFmpeg and ffmpy from pypi')
 
     @loggedIn
+    def updateVideoAndPictureProfile(self, path_p, path, returnAs='bool'):
+        if returnAs not in ['bool']:
+            raise Exception('Invalid returnAs value')
+        files = {'file': open(path, 'rb')}
+        data = {'params': self.genOBSParams({'oid': self.profile.mid,'ver': '2.0','type': 'video','cat': 'vp.mp4'})}
+        r_vp = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/talk/vp/upload.nhn', data=data, files=files)
+        if r_vp.status_code != 201:
+            raise Exception('Update profile video picture failure.')
+        self.updateProfilePicture(path_p, 'vp')
+        if returnAs == 'bool':
+            return True
+
+    @loggedIn
     def updateProfileCover(self, path, returnAs='bool'):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
@@ -71,32 +84,36 @@ class Object(object):
     """Object"""
 
     @loggedIn
-    def uploadObjSquare(self, squareChatMid, path, type='image', returnAs='bool'):
+    def uploadObjSquare(self, squareChatMid, path, type='image', returnAs='bool', name=None):
         if returnAs not in ['bool']:
             raise Exception('Invalid returnAs value')
         if type not in ['image','gif','video','audio','file']:
             raise Exception('Invalid type value')
+        try:
+            import magic
+        except ImportError:
+            raise Exception('You must install python-magic from pip')
+        mime = magic.Magic(mime=True)
+        contentType = mime.from_file(path)
         data = open(path, 'rb').read()
         params = {
+            'name': '%s' % str(time.time()*1000),
             'oid': 'reqseq',
             'reqseq': '%s' % str(self.revision),
             'tomid': '%s' % str(squareChatMid),
-            'size': '%s' % str(len(data)),
-            'range': len(data),
-            'type': '%s' % str(type)
+            'type': '%s' % str(type),
+            'ver': '1.0'
         }
-        if type == 'image':
-            contentType = 'image/jpeg'
-        elif type == 'gif':
-            contentType = 'image/gif'
-        elif type == 'video':
+        if type == 'video':
             params.update({'duration': '60000'})
-            contentType = 'video/mp4'
         elif type == 'audio':
-            params.update({'duration': '0'})
-            contentType = 'audio/mp3'
+            params.update({'duration': '60000'})
+        elif type == 'gif':
+            params.update({'type': 'image', 'cat': 'original'})
+        elif type == 'file':
+            params.update({'name': name})
         headers = self.server.additionalHeaders(self.server.Headers, {
-            'content-type': contentType,
+            'Content-Type': contentType,
             'Content-Length': str(len(data)),
             'x-obs-params': self.genOBSParams(params,'b64'),
             'X-Line-Access': self.squareObsToken
@@ -108,7 +125,7 @@ class Object(object):
             return True
 
     @loggedIn
-    def uploadObjTalk(self, path, type='image', returnAs='bool', objId=None, to=None):
+    def uploadObjTalk(self, path, type='image', returnAs='bool', objId=None, to=None, name=None):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
         if type not in ['image','gif','video','audio','file']:
@@ -117,18 +134,19 @@ class Object(object):
         files = {'file': open(path, 'rb')}
         if type == 'image' or type == 'video' or type == 'audio' or type == 'file':
             e_p = self.server.LINE_OBS_DOMAIN + '/talk/m/upload.nhn'
-            data = {'params': self.genOBSParams({'oid': objId,'size': len(open(path, 'rb').read()),'type': type})}
+            data = {'params': self.genOBSParams({'oid': objId,'size': len(open(path, 'rb').read()),'type': type, 'name': name})}
         elif type == 'gif':
-            e_p = self.server.LINE_OBS_DOMAIN + '/talk/m/upload.nhn'
+            e_p = self.server.LINE_OBS_DOMAIN + '/r/talk/m/reqseq'
             files = None
             data = open(path, 'rb').read()
             params = {
+                'name': '%s' % str(time.time()*1000),
                 'oid': 'reqseq',
                 'reqseq': '%s' % str(self.revision),
                 'tomid': '%s' % str(to),
-                'name': '%s' % str(time.time()*1000),
                 'cat': 'original',
-                'type': 'image'
+                'type': 'image',
+                'ver': '1.0'
             }
             headers = self.server.additionalHeaders(self.server.Headers, {
                 'Content-Type': 'image/gif',
@@ -159,10 +177,11 @@ class Object(object):
             objId = int(time.time())
         file = open(path, 'rb').read()
         params = {
+            'name': '%s' % str(time.time()*1000),
             'userid': '%s' % self.profile.mid,
             'oid': '%s' % str(objId),
-            'range': len(file),
-            'type': type
+            'type': type,
+            'ver': '1.0'
         }
         hr = self.server.additionalHeaders(self.server.timelineHeaders, {
             'Content-Type': contentType,
@@ -178,14 +197,12 @@ class Object(object):
             return True
 
     @loggedIn
-    def downloadObjectMsg(self, messageId, returnAs='path', saveAs='', isGif=False):
+    def downloadObjectMsg(self, messageId, returnAs='path', saveAs=''):
         if saveAs == '':
             saveAs = self.genTempFile('path')
         if returnAs not in ['path','bool','bin']:
             raise Exception('Invalid returnAs value')
         params = {'oid': messageId}
-        if isGif:
-            params['tid'] = 'original'
         url = self.server.urlEncode(self.server.LINE_OBS_DOMAIN, '/talk/m/download.nhn', params)
         r = self.server.getContent(url)
         if r.status_code == 200:
