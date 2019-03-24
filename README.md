@@ -57,7 +57,7 @@ init.run(handler=message_handler)
 
 ## Run your bot
 ```bash
-$ cd 
+$ cd A
 $ cd bots
 $ python3 bot.py
 ```
@@ -71,4 +71,4 @@ $ python3 bot.py
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
 
 
-### TODO: if you have any idea or found some little bug, free for report to Author
+### TODO: if you have any idea or found some little bug or something, free for report to Author
