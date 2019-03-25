@@ -49,6 +49,8 @@ message_handler = {
 }
 """
 pass message_handler Variable for your function without ()
+you can use number from OpType for key of message_handler
+e.g: message_handler = {26: receive_message} 26 meant same as OpType.RECEIVE_MESSAGE
 """
 
 init.run(handler=message_handler)
