@@ -54,7 +54,16 @@ class MainBots(object):
 		g = message.id
 		return client.sendReplyMessage(g, message.to, text)
 	 
-	def at_getMid(self, message):
+	def at_getMid(self, message: Message):
+		"""
+		Use this method to get Mid from user using @Mention
+		@message: class<akad.ttypes.Message>
+		
+		example:
+		init.at_getMid(message)
+		
+		:Return: string or list of mid from target
+		"""
 		key = eval(message.contentMetadata["MENTION"])
 		key["MENTIONEES"][0]["M"]
 		if len(key["MENTIONEES"]) <= 1:
