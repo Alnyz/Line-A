@@ -58,7 +58,7 @@ init.run(handler=message_handler)
 #run BOT
 ```
 
-> Look This [Example](https://github.com/dyseo/A/blob/master/bots/bot.py) for more detail
+> Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
 
 ## Run your bot
 ```bash
