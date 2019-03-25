@@ -1,6 +1,6 @@
 #            ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
 
-[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg)[![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)]
+[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg)![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 
 
