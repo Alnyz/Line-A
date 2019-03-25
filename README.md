@@ -24,7 +24,7 @@ _Bot line with Private Message's API_
      
 ## How to use bot  
 ```python
-from mains import import MainBots
+from mains import MainBots
 from linepy import OpType
 
 init = MainBots(token="YOUR TOKEN HERE")
