@@ -1,7 +1,7 @@
 # ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
 _Bot line with Private Message's API_
 
-[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
+[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.3-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 
 
@@ -74,6 +74,7 @@ $ python3 bot.py
 
 ## Thanks to:
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
+
 
 
 > ### TODO: if you have any idea or found some little bug or something, free for report to Author
