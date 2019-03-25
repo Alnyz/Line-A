@@ -58,7 +58,7 @@ class OEPoll(object):
         else:
             return operations
 
-    def msg_handler(self, type):
+    def message_handler(self, type):
     	def decorator(func):
     		def wraper(*arg, **kwg):
     			func(*arg, **kwg)
