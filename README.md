@@ -1,6 +1,7 @@
-#            ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
+# ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
+_Bot line with Private Message's API_
 
-[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg)
+[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 
 
@@ -10,7 +11,7 @@
 - [x] Including MultiThread
 - [x] Simply login
 - [x] More than fasted
-- [ ] Included Decorator as soon as possible
+- [x] Included simple Decorator
 
 ## Installing Linepy
 * install [Linepy](https://pypi.org/project/linepy/3.0.8/) from [Pypi](pypi.org) not necessary
@@ -49,15 +50,19 @@ message_handler = {
 }
 """
 pass message_handler Variable for your function without ()
+you can use number from OpType for key of message_handler
+e.g: message_handler = {26: receive_message} 26 meant same as OpType.RECEIVE_MESSAGE
 """
 
 init.run(handler=message_handler)
 #run BOT
 ```
 
+> Look This [Example](https://github.com/dyseo/A/blob/master/bots/bot.py) for more detail
+
 ## Run your bot
 ```bash
-$ cd 
+$ cd A
 $ cd bots
 $ python3 bot.py
 ```
@@ -69,3 +74,6 @@ $ python3 bot.py
 
 ## Thanks to:
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
+
+
+### TODO: if you have any idea or found some little bug or something, free for report to Author
