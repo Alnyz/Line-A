@@ -23,6 +23,7 @@ def receive_message(client, message):
     
     :Return: client object and Message objects
     """
+    pass
     
 #Run bot
 init.runs()
