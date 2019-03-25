@@ -28,4 +28,20 @@ def receive_message(client, message):
 init.runs()
 ```
 
+## Any example for any Notified
+
+```python
+
+@init.poll.message_handler(type=19)
+def notif_kicked(client, message):
+    pass
+
+@init.poll.message_handler(type=13)
+def notif_joined(client, message):
+    pass
+    
+@init.poll.message_handler(type=32)
+def notif_cancled(client, message):
+    pass
+```
 > TODO: i'll update features as soon as possible, if you and any idea or found some bug free for report
