@@ -1,6 +1,11 @@
 language: python
 dist: xenial
 sudo: false
+evn:
+  global:
+    - secure: FxQsoberKXawRGE7NtUYRA
+  matrix:
+    - USE_NETWORK: true
 python:
   - "3.6"
   - "3.7"
