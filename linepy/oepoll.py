@@ -4,7 +4,7 @@ from .client import LINE
 from threading import Thread
 from types import *
 
-import os, sys, time
+import os, sys, time, traceback
 
 class OEPoll(object):
     OpInterrupt = {}
@@ -17,7 +17,10 @@ class OEPoll(object):
             raise Exception('You need to set LINE instance to initialize OEPoll')
         self.client = client
         self.threads = []
-
+    
+    def __fetchOperation(self, revision, count=1):
+        return self.client.poll.fetchOperations(revision, count)
+        
     def __execute(self, op, threading):
         try:
             if threading:
@@ -54,6 +57,29 @@ class OEPoll(object):
             return []
         else:
             return operations
+
+    def msg_handler(self, type):
+    	def decorator(func):
+    		def wraper(*arg, **kwg):
+    			func(*arg, **kwg)
+    		return wraper, self.addOpInterruptWithDict({type:func})
+    	return decorator
+    
+    def untrace(self, threads=True): 	
+    	try:    		    		
+    		ops = self.__fetchOperation(self.client.revision)
+    	except:
+    		print(traceback.format_exc())
+    	
+    	for op in ops:
+    		
+    		if op.type in self.OpInterrupt.keys():
+    			self.__execute(op, threads)
+    		self.setRevision(op.revision)
+	    
+    def run(self):
+    	while True:
+    		self.untrace()
 
     def trace(self, threading=True, fetchOperations=None):
         if not fetchOperations:

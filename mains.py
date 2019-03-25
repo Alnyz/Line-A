@@ -26,7 +26,11 @@ class MainBots(object):
 		self.db.add_bot(
 				self.line.getProfile().mid,
 				instance=str(self.line))
-					
+		
+	
+	def runs(self):
+		self.poll.run()
+						
 	def run(self, handler: dict or set = {}) -> dict:
 		self.poll.addOpInterruptWithDict(handler)
 		while True:

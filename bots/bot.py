@@ -5,9 +5,10 @@ from mains import  MainBots
 import traceback
 
 init = MainBots(token="YOUR TOKEN")
-init2 = MainBots(token="YOUR OTHER TOKEN")
-init3 = MainBots(token="YOUR ANOTHER TOKEN")
+#init2 = MainBots(token="YOUR OTHER TOKEN")
+#init3 = MainBots(token="YOUR ANOTHER TOKEN")
 
+@init.poll.msg_handler(type=26)
 @init.log(traceback)
 def receive_msg(client, m):
 	msg = m.message
@@ -21,10 +22,9 @@ def receive_msg(client, m):
 			init.reply(client=client, message=msg, text="hai to")
 		if text.startswith("addadmin"):
 			# #this will add someuser with tag or not to database
-			init.add_admin(client=client,
-									mid=msg)
+			init.add_admin(client=client,mid=msg)
 			
-
+@init.poll.msg_handler(type=13)
 @init.log(traceback)
 def invited(client, m):
 	group = m.param1
@@ -39,6 +39,7 @@ def invited(client, m):
 			client.sendMessage(group, "Only admin")
 			client.leaveGroup(group)
 
+@init.poll.msg_handler(type=19)
 @init.log(traceback)
 def kicked(client, m):
 	groups = m.param1
@@ -48,12 +49,6 @@ def kicked(client, m):
 		if who in init.db.listed(admin=True)["_id"]:
 			pass
 		else:
-			init.add_users(client=client, group_id=groups, mid=who, into="blacklist")
-			
-handler = {
-	26: receive_msg,
-	13: invited,
-	19: kicked
-}
+			init.add_users(client=client, group_id=groups, mid=who, into="blacklist")		
 	
-init.run(handler=handler)
+init.runs()

@@ -3,7 +3,7 @@ import pymongo
 
 import traceback
 
-URI ="YOUR MONGO DB URI,no have? see www.mongodb.com"
+URI ="YOUR MONGODB CLIENT HERE"
 myclient = MongoClient(URI, ssl=True, retryWrites=True)
 
 class DataBase(object):
