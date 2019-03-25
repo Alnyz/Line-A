@@ -3,7 +3,8 @@ dist: xenial
 sudo: false
 evn:
   global:
-    - secure: FxQsoberKXawRGE7NtUYRA
+    - CAMPFIRE_TOKEN=FxQsoberKXawRGE7NtUYRA
+    - TIMEOUT=1000
   matrix:
     - USE_NETWORK: true
 python:
