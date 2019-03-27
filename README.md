@@ -1,7 +1,7 @@
 # ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
 _Bot line with Private Message's API_
 
-[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.1-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
+[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.3-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 
 
@@ -24,7 +24,7 @@ _Bot line with Private Message's API_
      
 ## How to use bot  
 ```python
-from mains import import MainBots
+from mains import MainBots
 from linepy import OpType
 
 init = MainBots(token="YOUR TOKEN HERE")
@@ -58,7 +58,7 @@ init.run(handler=message_handler)
 #run BOT
 ```
 
-> Look This [Example](https://github.com/dyseo/A/blob/master/bots/bot.py) for more detail
+> Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
 
 ## Run your bot
 ```bash
@@ -76,4 +76,9 @@ $ python3 bot.py
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
 
 
+<<<<<<< HEAD
 ### TODO: if you have any idea or found some little bug or something, free for report to Author
+=======
+
+> ### TODO: if you have any idea or found some little bug or something, free for report to Author
+>>>>>>> c5d339eab676fab0a85ce7afddebdbc47ebd7c7f
