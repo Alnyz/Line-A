@@ -76,9 +76,5 @@ $ python3 bot.py
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
 
 
-<<<<<<< HEAD
-### TODO: if you have any idea or found some little bug or something, free for report to Author
-=======
-
 > ### TODO: if you have any idea or found some little bug or something, free for report to Author
->>>>>>> c5d339eab676fab0a85ce7afddebdbc47ebd7c7f
+
