@@ -3,7 +3,7 @@ sys.path.append("../")
 
 from mains import  MainBots
 
-init = MainBots(token="u7bbe611b259e30f6ec652f40fce4e7bf:aWF0OiAxNTUxNjUyMzc5NDI2Cg==..KocjqFv1Q7noudJUSi/5KzTn2lA=")
+init = MainBots(token="YOUR TOKEN")
 
 @init.poll.hooks(types=26, commands=["haq","hii"], at=["private"], prefix=[".","/"])
 def messages(client, message):
