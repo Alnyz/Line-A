@@ -5,7 +5,7 @@ from akad import AuthService, TalkService, ChannelService, CallService, SquareSe
 
 class Session:
 
-    def __init__(self, url, headers, path='', customThrift=False):
+    def __init__(self, url, headers, path='', customThrift=True):
         self.host = url + path
         self.headers = headers
         self.customThrift = customThrift

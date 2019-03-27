@@ -2,6 +2,8 @@
 from akad.ttypes import TalkException, ShouldSyncException
 from .client import LINE
 from threading import Thread
+import types
+
 from types import *
 
 import os, sys, time, traceback
@@ -58,10 +60,11 @@ class OEPoll(object):
         else:
             return operations
 
-    def msg_handler(self, type):
+    def message_handler(self, type):
     	def decorator(func):
     		def wraper(*arg, **kwg):
     			func(*arg, **kwg)
+    			return True
     		return wraper, self.addOpInterruptWithDict({type:func})
     	return decorator
     

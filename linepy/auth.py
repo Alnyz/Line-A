@@ -4,7 +4,7 @@ from .server import Server
 from .session import Session
 from .callback import Callback
 
-import rsa, os
+import rsa, os, threading
 
 class Auth(object):
     isLogin     = False
@@ -31,6 +31,7 @@ class Auth(object):
         
         self.revision = self.poll.getLastOpRevision()
         self.isLogin = True
+                
 
     def __loginRequest(self, type, data):
         lReq = LoginRequest()
@@ -179,7 +180,7 @@ class Auth(object):
                 return False
         else:
             raise Exception('Login failed')
-
+          
     def loginWithAuthToken(self, authToken=None):
         if authToken is None:
             raise Exception('Please provide Auth Token')

@@ -34,6 +34,7 @@ class THttpClient(TTransportBase):
         else:
             parsed = urllib.parse.urlparse(uri_or_host)
             self.scheme = parsed.scheme
+            
             assert self.scheme in ('http', 'https')
             if self.scheme == 'http':
                 self.port = parsed.port or http_client.HTTP_PORT
@@ -53,6 +54,7 @@ class THttpClient(TTransportBase):
                 self.__http = http_client.HTTPSConnection(self.host, self.port)
         else:
             self.__http = None
+               
         self.__http_response = None
         self.__timeout = None
         self.__custom_headers = None
@@ -178,3 +180,4 @@ class THttpClient(TTransportBase):
     # Decorate if we know how to timeout
     if hasattr(socket, 'getdefaulttimeout'):
         flush = __withTimeout(flush)
+        

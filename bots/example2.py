@@ -4,11 +4,9 @@ sys.path.append("../")
 from mains import  MainBots
 import traceback
 
-init = MainBots(token="YOUR TOKEN")
-#init2 = MainBots(token="YOUR OTHER TOKEN")
-#init3 = MainBots(token="YOUR ANOTHER TOKEN")
+init = MainBots(token="u7bbe611b259e30f6ec652f40fce4e7bf:aWF0OiAxNTUxNjUyMzc5NDI2Cg==..KocjqFv1Q7noudJUSi/5KzTn2lA=")
 
-@init.poll.msg_handler(type=26)
+@init.poll.message_handler(type=26)
 @init.log(traceback)
 def receive_msg(client, m):
 	msg = m.message
@@ -24,7 +22,7 @@ def receive_msg(client, m):
 			# #this will add someuser with tag or not to database
 			init.add_admin(client=client,mid=msg)
 			
-@init.poll.msg_handler(type=13)
+@init.poll.message_handler(type=13)
 @init.log(traceback)
 def invited(client, m):
 	group = m.param1
@@ -39,7 +37,7 @@ def invited(client, m):
 			client.sendMessage(group, "Only admin")
 			client.leaveGroup(group)
 
-@init.poll.msg_handler(type=19)
+@init.poll.message_handler(type=19)
 @init.log(traceback)
 def kicked(client, m):
 	groups = m.param1
