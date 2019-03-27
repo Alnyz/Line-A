@@ -2,8 +2,25 @@
 
 *now you only pass a decorator for hook any functions which you want*
 
+# Example1
+```python
+from mains import MainBots
 
-# Example
+init = MainBots(token="YOUR BOT TOKEN")
+
+@init.poll.hooks(type=25, commands=["halo"], at=["group"], prefix=[".", "/"])
+def send_message(client, messages):
+    """
+    Attribute:
+    See linepy/oepolls for detail
+    """
+    msg = messages.message
+    client.sendMessage(msg.to, "Hayy... ")
+    
+init.runs()
+```
+
+# Example2
 ```python
 
 from mains import MainBots
@@ -45,4 +62,8 @@ def notif_joined(client, message):
 def notif_cancled(client, message):
     pass
 ```
+## NOTE: Example1 and Example2 this different methods, so if you have confused read more docs or contact me
+
+
+
 > TODO: i'll update features as soon as possible, if you and any idea or found some bug free for report
