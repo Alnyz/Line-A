@@ -21,8 +21,19 @@ def again(client, message):
 	msg = message.message
 	client.sendMessage(msg.to if msg.toType == 2 else msg._from, "Hy im on Both")
 	
+<<<<<<< HEAD
 @init.poll.hooks(13, func=lambda m: m)
 def notif(client, message):
 	print("NOTIFIED INVITE")	
 	
 init.runs()
+=======
+
+@init.poll.hooks(13, func=lambda m: m)
+def notif(client, message):
+	print("NOTIFIED INVITE")
+	
+init.runs()
+
+
+>>>>>>> ae0a6aef289a57ccf21b3b6b7c2deba3233095a6

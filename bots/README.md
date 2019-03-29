@@ -8,11 +8,11 @@ from mains import MainBots
 
 init = MainBots(token="YOUR BOT TOKEN")
 
-@init.poll.hooks(type=25, commands=["halo"], at=["group"], prefix=[".", "/"])
+@init.poll.hooks(type=25, command=["halo"], at=["group"], prefix=[".", "/"])
 def send_message(client, messages):
     """
     Attribute:
-    See linepy/oepolls for detail
+    
     """
     msg = messages.message
     client.sendMessage(msg.to, "Hayy... ")
@@ -27,7 +27,7 @@ from mains import MainBots
 
 init = MainBots(token="YOUR TOKEN")
 
-@init.poll.message_handler(type=26)
+@init.poll.hooks(type=26)
 def receive_message(client, message):
     """
     type: class <int>
@@ -50,20 +50,18 @@ init.runs()
 
 ```python
 
-@init.poll.message_handler(type=19)
+@init.poll.hooks(type=19)
 def notif_kicked(client, message):
     pass
 
-@init.poll.message_handler(type=13)
+@init.poll.hooks(type=13)
 def notif_joined(client, message):
     pass
     
-@init.poll.message_handler(type=32)
+@init.poll.hookz(type=32)
 def notif_cancled(client, message):
     pass
 ```
-## NOTE: Example1 and Example2 this different methods, so if you have confused read more docs or contact me
-
-
+## NOTE: if your have headache of decorator please contact me
 
 > TODO: i'll update features as soon as possible, if you and any idea or found some bug free for report
