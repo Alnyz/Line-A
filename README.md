@@ -20,53 +20,9 @@ _Bot line with Private Message's API_
 
 * install requirements attached
 
-     `pip3 install -r requirements.txt`
-     
-## How to use bot  
-```python
-from mains import MainBots
-from linepy import OpType
-
-init = MainBots(token="YOUR TOKEN HERE")
-"""
-declarate this line for your Bots
-you can use email and password for login into bot
-init = MainBots(email='your email', passwd='your mail password')
-or you can pass args for getting QRCode URL
-init = MainBots()
-"""
-
-def receive_message(client, operations):
-    """
-    use this method to implement your bot if Message income from user
-    client = :Classes: <linepy.client.LINE object>
-    this mean for used any functions from clinet e.g: client.sendMessage(..
-    
-    operation = :Classes: :Tuple: which contains a collection of messages
-    e.g: Operations(revision=1, createdTime=1553146515644, type=25, reqSeq=994, checksum=None, status=None, param1='0', param2=None, param3=None, message=Message( ...
-"""
-message_handler = {
-    OpType.RECEIVE_MESSAGE: receive_message
-}
-"""
-pass message_handler Variable for your function without ()
-you can use number from OpType for key of message_handler
-e.g: message_handler = {26: receive_message} 26 meant same as OpType.RECEIVE_MESSAGE
-"""
-
-init.run(handler=message_handler)
-#run BOT
-```
-
-> Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
-
-## Run your bot
-```bash
-$ cd A
-$ cd bots
-$ python3 bot.py
-```
-
+     `pip3 install -r requirements.txt`     
+ 
+> # Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
 
 
 # Author
