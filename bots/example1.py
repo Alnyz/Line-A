@@ -3,7 +3,7 @@ sys.path.append("../")
 
 from mains import  MainBots
 
-init = MainBots(token="u7bbe611b259e30f6ec652f40fce4e7bf:aWF0OiAxNTUxNjUyMzc5NDI2Cg==..KocjqFv1Q7noudJUSi/5KzTn2lA=")
+init = MainBots(token="YOUR TOKEN")
 
 @init.poll.hooks(26, at=["private"], command=["hi","halo"], prefix=[".","/"])
 def message(client, message):
@@ -21,7 +21,12 @@ def again(client, message):
 	msg = message.message
 	client.sendMessage(msg.to if msg.toType == 2 else msg._from, "Hy im on Both")
 	
+<<<<<<< HEAD
 @init.poll.hooks(13, func=lambda m: m)
 def notif(client, message):
 	print("NOTIFIED INVITE")	
 init.runs()
+=======
+while True:
+	init.poll.trace()
+>>>>>>> 7a16f380f75f58bdd496ab2098f177a7a070e27d
