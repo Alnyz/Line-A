@@ -1,7 +1,7 @@
 # ![Logo](https://github.com/dyseo/X/blob/master/examples/assets/LINE-sm.png) Line-A
 _Bot line with Private Message's API_
 
-[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.3-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
+[![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-0.5-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 
 
@@ -13,7 +13,7 @@ _Bot line with Private Message's API_
 - [x] More than fasted
 - [x] Included simple Decorator
 
-## Installing Linepy
+## Installing
 * install [Linepy](https://pypi.org/project/linepy/3.0.8/) from [Pypi](pypi.org) not necessary
  
      `pip3 install linepy`
@@ -22,11 +22,10 @@ _Bot line with Private Message's API_
 
      `pip3 install -r requirements.txt`     
  
+
+ ##Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
  
  
-> ## Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
-
-
 # Author
 [Line](line.me/ti/p/~line.bngsad) | [Telegram](t.me/alnyz)
 
