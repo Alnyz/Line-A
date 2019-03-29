@@ -1,6 +1,4 @@
-from linepy import (OpType, OEPoll, OEPolls, LINE,
-								Call, Shop, Talk, Square,
-								Models, Auth, Server, Timeline)
+from linepy import (OpType, OEPoll, LINE)
 from akad.ttypes import Message
 from bots.plugins.database import DataBase
 from bots.plugins.configs import Filters
@@ -20,24 +18,14 @@ class MainBots(object):
 			self.line = LINE()
 		
 		self.img_url = "http://dl.profile.line-cdn.net/"
-		self.poll = OEPolls(self.line)
+		self.poll = OEPoll(self.line)
 		self.db = DataBase()
 		self.db.add_bot(
 				self.line.getProfile().mid,
 				instance=str(self.line))
+		
 			
 	def runs(self):
-		self.poll.run()
-		
-		"""
-		Here have 2 method to run bot
-		function run and runs, i've create they both only make sure which effective on bot
-		
-		see /bots/example1 for function runs
-		see /bots/example2 for function run
-		"""				
-	def run(self, handler: dict or set = {}) -> dict:
-		self.poll.addOpInterruptWithDict(handler)
 		while True:
 			self.poll.trace()
 		

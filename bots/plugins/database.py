@@ -17,9 +17,7 @@ class DataBase(object):
 				"_id":mid,
 				"other":kwg
 			}
-			if mid in self.listed(bots=True)["_id"]:
-				pass
-			else:
+			if self.listed(bots=True) == None:
 				self.col.bot_db.insert_one(data)
 				return True
 		except pymongo.errors.DuplicateKeyError:
@@ -31,9 +29,7 @@ class DataBase(object):
 				"_id":mid,
 				"other":kwg
 			}
-			if mid in self.listed(groups=True)["_id"]:
-				pass
-			else:
+			if self.listed(groups=True) == None:
 				self.col.group_db.insert_one(data)
 				return True
 		except pymongo.errors.DuplicateKeyError:
@@ -45,11 +41,9 @@ class DataBase(object):
 				"_id":mid,
 				"other":kwg
 			}
-			if mid in self.listed(admin=True)["_id"]:
-				pass
-			else:
+			if mid in self.listed(admin=True) == None:
 				self.col.admin_db.insert_one(data)
-				return True			
+				return True
 		except pymongo.errors.DuplicateKeyError:
 			return False
 	
@@ -60,11 +54,9 @@ class DataBase(object):
 				"is":into,
 				"other":kwg
 			}
-			if mid in self.listed(users=True)["_id"]:
-				pass
-			else:
+			if self.listed(users=True) == None:
 				self.col.users_db.insert_one(data)
-				return True			
+				return True
 		except pymongo.errors.DuplicateKeyError:
 			return False
 	

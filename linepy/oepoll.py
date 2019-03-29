@@ -1,116 +1,105 @@
 # -*- coding: utf-8 -*-
-from akad.ttypes import TalkException, ShouldSyncException
 from .client import LINE
 from threading import Thread
-import types
-
 from types import *
+from functools import wraps
+import traceback
+import logging
 
-import os, sys, time, traceback
+log = logging.getLogger(__name__)
 
 class OEPoll(object):
-    OpInterrupt = {}
-    client = None
-    __squareSubId = {}
-    __squareSyncToken = {}
-
-    def __init__(self, client):
-        if type(client) is not LINE:
-            raise Exception('You need to set LINE instance to initialize OEPoll')
-        self.client = client
-        self.threads = []
-    
-    def __fetchOperation(self, revision, count=1):
-        return self.client.poll.fetchOperations(revision, count)
+	def __init__(self, client):
+		if not isinstance(client, LINE):
+			raise Exception('You need to set LINE instance to initialize OEPoll')
+		
+		self.client: LINE = client
+		self.Opinterrupt: list = []
+		self.add_command: list = []     
         
-    def __execute(self, op, threading):
-        try:
-            if threading:
-                _td = Thread(target=self.OpInterrupt[op.type], args=(self.client,op))
-                _td.start()
-            else:
-                self.OpInterrupt[op.type](op)
-        except Exception as e:
-            self.client.log(e)
-
-    def addOpInterruptWithDict(self, OpInterruptDict):
-        self.OpInterrupt.update(OpInterruptDict)
-
-    def addOpInterrupt(self, OperationType, DisposeFunc):
-        self.OpInterrupt[OperationType] = DisposeFunc
-    
-    def setRevision(self, revision):
-        self.client.revision = max(revision, self.client.revision)
-
-    def singleTrace(self, count=1, fetchOperations=None):
-        if not fetchOperations:
-            fetchOperations = self.client.fetchOperation
-        try:
-            operations = fetchOperations(self.client.revision, count=count)
-        except KeyboardInterrupt:
-            sys.exit()
-        except ShouldSyncException:
-            self.setRevision(self.client.poll.getLastOpRevision())
-            return []
-        except:
-            return []
-
-        if operations is None:
-            return []
-        else:
-            return operations
-
-    def message_handler(self, type):
-    	def decorator(func):
-    		def wraper(*arg, **kwg):
-    			func(*arg, **kwg)
-    			return True
-    		return wraper, self.addOpInterruptWithDict({type:func})
-    	return decorator
-    
-    def untrace(self, threads=True): 	
-    	try:    		    		
-    		ops = self.__fetchOperation(self.client.revision)
-    	except:
-    		print(traceback.format_exc())
-    	
-    	for op in ops:
-    		
-    		if op.type in self.OpInterrupt.keys():
-    			self.__execute(op, threads)
-    		self.setRevision(op.revision)
-	    
-    def run(self):
-    	while True:
-    		self.untrace()
-
-    def trace(self, threading=True, fetchOperations=None):
-        if not fetchOperations:
-            fetchOperations = self.client.fetchOperation
-        try:
-            operations = fetchOperations(self.client.revision)
-        except KeyboardInterrupt:
-            sys.exit()
-        except ShouldSyncException:
-            self.setRevision(self.client.poll.getLastOpRevision())
-            return
-        except:
-            return
-        
-        for op in operations:
-            if op.type in self.OpInterrupt.keys():
-                self.__execute(op, threading)
-            self.setRevision(op.revision)
-        
-
-    def singleFetchSquareChat(self, squareChatMid, limit=1):
-        if squareChatMid not in self.__squareSubId:
-            self.__squareSubId[squareChatMid] = 0
-        if squareChatMid not in self.__squareSyncToken:
-            self.__squareSyncToken[squareChatMid] = ''
-        
-        sqcEvents = self.client.fetchSquareChatEvents(squareChatMid, subscriptionId=self.__squareSubId[squareChatMid], syncToken=self.__squareSyncToken[squareChatMid], limit=limit, direction=1)
-        self.__squareSubId[squareChatMid] = sqcEvents.subscription
-        self.__squareSyncToken[squareChatMid] = sqcEvents.syncToken
-
-        return sqcEvents.events
+	def fetchOps(self, revision: int, count: int = 1):
+	    return self.client.poll.fetchOperations(revision, count)
+          
+	def hooks(self,
+	                types: int ,
+	                func: LambdaType = None,
+	                command: list or str = [],
+	                prefix: list or str = ["."],
+	                at: list = ["group"],
+	                sensitive: bool = True,
+	                **kwgs
+	                ) -> callable:
+		def decorator(function):
+			@wraps(function)
+			def _wrap(self, *args, **kwargs):
+				func(*args, **kwargs)
+				return True
+			data = {
+				function:{
+					"func":func,
+					"cmd":command,
+					"prefix":prefix,
+					"at":at,
+					"sensitive":sensitive,
+					**kwgs
+				}	
+			}
+			self.add_command.append(data)
+			return _wrap,self.Opinterrupt.append({types:function}),True
+		return decorator
+	
+	def _exec(self, ops, func):
+		gcheck = False
+		pcheck = False
+		try:
+			msg = ops.message if ops.message else ops
+			for i in range(len(self.add_command)):				
+				if func in self.add_command[i] :
+					if self.add_command[i][func]:
+						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
+					elif self.add_command[i][func]['func'] != None and self.add_command[i][func]['func'](msg):			
+						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
+					else:
+						key = self.add_command[i][func]
+						if key["at"][0] == "group" and msg.toType == 2:gcheck =True
+						if key["at"][0] == "private" and msg.toType == 0:gcheck =True
+						if key["at"][0] == "any" and (msg.toType == 0 or 2):gcheck = True
+						text = msg.text if not key["sensitive"] else msg.text.lower() if msg.text != None else msg
+						if key["prefix"]:
+							for p in key["prefix"]:
+								if text in [(p+x) for x in key["cmd"]]:
+									pcheck = True
+						else:
+							if text in key["cmd"]:
+								pcheck = True
+					if gcheck and pcheck:
+						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)				
+		except Exception:	
+			log.warn(traceback.format_exc())
+	
+	def do_job(self,ops, op_type,fuc,count):
+		try:
+			th = Thread(target=self.Opinterrupt[count][op_type],args=(self.client,ops))
+			th.start()
+		except:
+			log.error(traceback.format_exc())
+			
+	def setRevision(self, revision):
+		self.client.revision = max(revision, self.client.revision)
+	
+	def trace(self):
+		try:
+			ops = self.fetchOps(self.client.revision)
+			for op in ops:
+				if self.add_command:
+					for i in range(len(self.Opinterrupt)):
+						if list(self.Opinterrupt[i].values())[0] in self.add_command[i]:
+							if op.type in self.Opinterrupt[i].keys():
+								self._exec(op, self.Opinterrupt[i][op.type])
+							self.setRevision(op.revision)
+		except EOFError:
+			pass
+		except UnboundLocalError:
+			pass
+		except Exception:
+			log.error(traceback.format_exc())         
