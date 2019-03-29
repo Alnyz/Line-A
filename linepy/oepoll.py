@@ -29,6 +29,17 @@ class OEPoll(object):
 	                sensitive: bool = True,
 	                **kwgs
 	                ) -> callable:
+		"""
+		Use this method to wrap your function as decorator
+		
+		Attribute:
+		types: <class int> value from OpType see akad.ttypes.OpType for detail
+		func: <class lambda> include lambda method to register Anonymous function
+		command: <class str or list> pass a list or string to command which will execute
+		prefix: <class str or list> pass a list or string to set a prefix for command
+		at: <class list> pass a one or two point for command will be execute 'any' for both
+		sensitive: <class bool> pass True to conver to lower case 		
+ 		"""
 		def decorator(function):
 			@wraps(function)
 			def _wrap(self, *args, **kwargs):
