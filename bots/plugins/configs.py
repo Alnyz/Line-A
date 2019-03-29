@@ -15,9 +15,9 @@ class Filters:
 			def wraper(*arg, **kwg):
 				if kwg is not {}:
 					for c in kwg.values():
-						if isinstance(i, LINE):
+						if isinstance(c, LINE):
 							pass
-						elif isinstance(i, Message):
+						elif isinstance(c, Message):
 							if c._from in is_mid_admin()["_id"]:
 								func(*arg, **kwg)
 								return True
