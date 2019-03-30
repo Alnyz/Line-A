@@ -3,7 +3,7 @@ import pymongo
 
 import traceback
 
-URI ="mongodb+srv://dyseo:aa9108lb@botline-agbyw.gcp.mongodb.net/base_line"
+URI ="Your mongodb URI"
 
 
 class DataBase(object):
