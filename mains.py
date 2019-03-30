@@ -105,7 +105,6 @@ class MainBots(object):
 									globals=True)
 		return True
 			
-	@Filters.is_admin()
 	def add_group(self,
 							client: LINE,
 							mid: str or list,
@@ -144,7 +143,6 @@ class MainBots(object):
 					name=g.creator.displayName))
 		return True
 	
-	@Filters.is_admin()
 	def add_admin(self,
 							client: LINE,
 							mid: str or list,

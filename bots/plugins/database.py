@@ -3,12 +3,13 @@ import pymongo
 
 import traceback
 
-URI ="YOUR MONGODB URI"
-myclient = MongoClient(URI, ssl=True, retryWrites=True)
+URI ="mongodb+srv://dyseo:aa9108lb@botline-agbyw.gcp.mongodb.net/base_line"
+
 
 class DataBase(object):
 	def __init__(self):
-		self.db = myclient.base_line
+		self.client =  MongoClient(URI, ssl=True)
+		self.db = self.client.base_line
 		self.col = self.db
 		
 	def add_bot(self, mid, **kwg):
@@ -65,16 +66,12 @@ class DataBase(object):
 					bots: bool = False,
 					groups: bool = True,
 					users: bool = False):
-		if admin:
-			for i in self.col.admin_db.find():
-				return i
-		if bots:
-			for i in self.col.bot_db.find():
-				return i	
-		if groups:
-			for i in self.col.group_db.find():
-				return i
-		if users:
-			for i in self.col.users_db.find():
-				return i
+		if admin:			
+			return [i["_id"] for i in self.col.admin_db.find()]
+		elif bots:		
+			return [i["_id"] for i in self.col.bot_db.find()]
+		elif groups:			
+			return [i["_id"] for i in self.col.group_db.find()]
+		elif users:			
+			return [i["_id"] for i in self.col.users_db.find()]
 				

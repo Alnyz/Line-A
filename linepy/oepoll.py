@@ -66,9 +66,9 @@ class OEPoll(object):
 			msg = ops.message if ops.message else ops
 			for i in range(len(self.add_command)):				
 				if func in self.add_command[i] :
-					if self.add_command[i][func]:
-						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
-					elif self.add_command[i][func]['func'] != None and self.add_command[i][func]['func'](msg):			
+					#if self.add_command[i][func]:
+						#self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
+					if self.add_command[i][func]['func'] != None and self.add_command[i][func]['func'](msg):			
 						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
 					else:
 						key = self.add_command[i][func]
