@@ -3,7 +3,11 @@ import pymongo
 
 import traceback
 
+<<<<<<< HEAD
 URI =""
+=======
+URI ="Your mongodb URI"
+>>>>>>> ac2a7d2f52a53edc3f181774201a4ddc03c6e5d2
 
 
 class DataBase(object):
@@ -66,8 +70,20 @@ class DataBase(object):
 					bots: bool = False,
 					groups: bool = False,
 					users: bool = False):
+<<<<<<< HEAD
 		if admin:return [i["_id"] for i in self.col.admin_db.find()]
 		elif bots:return [i["_id"] for i in self.col.bot_db.find()]
 		elif groups:return [i["_id"] for i in self.col.group_db.find()]
 		elif users:	return [i["_id"] for i in self.col.users_db.find()]
 				
+=======
+		if admin:			
+			return [i["_id"] for i in self.col.admin_db.find()]
+		elif bots:		
+			return [i["_id"] for i in self.col.bot_db.find()]
+		elif groups:			
+			return [i["_id"] for i in self.col.group_db.find()]
+		elif users:			
+			return [i["_id"] for i in self.col.users_db.find()]
+				
+>>>>>>> ac2a7d2f52a53edc3f181774201a4ddc03c6e5d2
