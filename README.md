@@ -14,10 +14,6 @@ _Bot line with Private Message's API_
 - [x] Included simple Decorator
 
 ## Installing
-* install [Linepy](https://pypi.org/project/linepy/3.0.8/) from [Pypi](pypi.org) not necessary
- 
-     `pip3 install linepy`
-
 * install requirements attached
 
      `pip3 install -r requirements.txt`     
