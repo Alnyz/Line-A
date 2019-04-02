@@ -2,7 +2,7 @@
 from datetime import datetime
 from .channel import Channel
 
-import json, time, base64
+import json, time, base64, asyncio
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):

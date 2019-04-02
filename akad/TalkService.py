@@ -10,7 +10,7 @@ from thrift.Thrift import TType, TMessageType, TFrozenDict, TException, TApplica
 from thrift.protocol.TProtocol import TProtocolException
 from thrift.TRecursive import fix_spec
 
-import sys
+import sys, asyncio
 import logging
 from .ttypes import *
 from thrift.Thrift import TProcessor
@@ -690,7 +690,7 @@ class Iface(object):
         """
         pass
 
-    def getProfile(self):
+    async def getProfile(self):
         pass
 
     def getProximityMatchCandidateList(self, sessionId):

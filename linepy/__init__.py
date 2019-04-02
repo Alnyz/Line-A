@@ -1,6 +1,7 @@
 from .client import LINE
 from .channel import Channel
 from .oepoll import OEPoll
+from .oepolls import OEPolls
 from .auth import Auth
 from .models import Models
 from .talk import Talk
@@ -9,6 +10,7 @@ from .call import Call
 from .timeline import Timeline
 from .server import Server
 from .shop import Shop
+from .filters import Filters
 from akad.ttypes import OpType
 
 __modified__        = 'Zero Cool'
@@ -21,6 +23,7 @@ __url__             = 'http://github.com/fadhiilrachman/line-py'
 
 __all__ = [
 	'LINE',
+	'Filters',
  	'Channel',
  	'OEPoll',
  	'OEPolls'

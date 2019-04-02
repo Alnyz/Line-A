@@ -3,7 +3,7 @@ import pymongo
 
 import traceback
 
-URI ="mongodb+srv://dyseo:aa9108lb@botline-agbyw.gcp.mongodb.net/base_line"
+URI =""
 
 
 class DataBase(object):
@@ -64,14 +64,10 @@ class DataBase(object):
 	def listed(self,
 					admin: bool = False,
 					bots: bool = False,
-					groups: bool = True,
+					groups: bool = False,
 					users: bool = False):
-		if admin:			
-			return [i["_id"] for i in self.col.admin_db.find()]
-		elif bots:		
-			return [i["_id"] for i in self.col.bot_db.find()]
-		elif groups:			
-			return [i["_id"] for i in self.col.group_db.find()]
-		elif users:			
-			return [i["_id"] for i in self.col.users_db.find()]
+		if admin:return [i["_id"] for i in self.col.admin_db.find()]
+		elif bots:return [i["_id"] for i in self.col.bot_db.find()]
+		elif groups:return [i["_id"] for i in self.col.group_db.find()]
+		elif users:	return [i["_id"] for i in self.col.users_db.find()]
 				

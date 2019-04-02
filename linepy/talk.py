@@ -2,7 +2,7 @@
 from akad.ttypes import Message, Location
 from random import randint
 
-import json, ntpath
+import json, ntpath, asyncio
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
@@ -27,7 +27,7 @@ class Talk(object):
         return self.talk.acquireEncryptedAccessToken(featureType)
 
     @loggedIn
-    def getProfile(self):
+    def getProfile(self):        
         return self.talk.getProfile()
 
     @loggedIn

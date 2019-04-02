@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .client import LINE
 from threading import Thread
+import threading
 from types import *
 from functools import wraps
 import traceback
@@ -64,10 +65,9 @@ class OEPoll(object):
 		pcheck = False
 		try:
 			msg = ops.message if ops.message else ops
-			for i in range(len(self.add_command)):				
-				if func in self.add_command[i] :
-					#if self.add_command[i][func]:
-						#self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
+			for i in range(len(self.add_command)):
+				
+				if func in self.add_command[i]:
 					if self.add_command[i][func]['func'] != None and self.add_command[i][func]['func'](msg):			
 						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)
 					else:
@@ -75,13 +75,13 @@ class OEPoll(object):
 						if key["at"][0] == "group" and msg.toType == 2:gcheck =True
 						if key["at"][0] == "private" and msg.toType == 0:gcheck =True
 						if key["at"][0] == "any" and (msg.toType == 0 or 2):gcheck = True
-						text = msg.text if not key["sensitive"] else msg.text.lower() if msg.text != None else msg
+						text = msg.text if not key["sensitive"] else msg.text.lower()
 						if key["prefix"]:
 							for p in key["prefix"]:
-								if text in [(p+x) for x in key["cmd"]]:
+								if text.split()[0] in [(p+x) for x in key["cmd"]]:
 									pcheck = True
 						else:
-							if text in key["cmd"]:
+							if text.split()[0] in key["cmd"]:
 								pcheck = True
 					if gcheck and pcheck:
 						self.do_job(op_type=ops.type, ops=ops,fuc=func,count=i)				

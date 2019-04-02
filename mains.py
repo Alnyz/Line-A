@@ -1,4 +1,4 @@
-from linepy import (OpType, OEPoll, LINE)
+from linepy import (OpType, OEPolls, LINE)
 from akad.ttypes import Message
 from bots.plugins.database import DataBase
 from bots.plugins.configs import Filters
@@ -18,17 +18,14 @@ class MainBots(object):
 			self.line = LINE()
 		
 		self.img_url = "http://dl.profile.line-cdn.net/"
-		self.poll = OEPoll(self.line)
-		self.db = DataBase()
-		self.db.add_bot(
-				self.line.getProfile().mid,
-				instance=str(self.line))
-		
+		self.poll = OEPolls(self.line)
 			
-	def runs(self):
-		while True:
-			self.poll.trace()
-		
+	def run(self):
+		try:			
+			self.poll.start()
+		except:
+			print(traceback.format_exc())
+			
 	def log(self, logger):
 		def decorator(func):
 			def wraper(*arg, **kwg):
@@ -39,17 +36,16 @@ class MainBots(object):
 			return wraper
 		return decorator
 	
-	def reply(self,client, message, text):
+	def reply(self, message, text):
 		"""
 		Use this method to Reply message to user
-		@client: class<linepy.LINE.client>
 		@message: class <akad.ttypes.Message>
 		@text: pass a string of text you want to send
 		exampe:
-		client.reply(client=client, message=message, text='hallo')
+		client.reply(message=message, text='hallo')
 		"""
 		g = message.id
-		return client.sendReplyMessage(g, message.to, text)
+		return self.line.sendReplyMessage(g, message.to, text)
 	 
 	def at_getMid(self, message: Message):
 		"""

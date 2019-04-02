@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from akad.ttypes import *
 from random import randint
-
+import traceback
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
         if args[0].isSupportSquare:

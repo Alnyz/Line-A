@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-import json, time, ntpath
+import json, time, ntpath, asyncio
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
@@ -16,8 +16,8 @@ class Object(object):
         if self.isLogin == True:
             self.log("[%s] : Login success" % self.profile.displayName)
 
-    """Group"""
 
+    """Group"""
     @loggedIn
     def updateGroupPicture(self, groupId, path):
         files = {'file': open(path, 'rb')}
