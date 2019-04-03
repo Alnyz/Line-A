@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from .client import LINE
-from .filters import Filters
 from threading import Thread
-import threading
-from types import *
 from functools import wraps
 import traceback
 import logging
