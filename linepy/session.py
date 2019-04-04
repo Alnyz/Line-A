@@ -58,18 +58,6 @@ class Session:
 
         return self._call
 
-    def Square(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._square  = SquareService.Client(self.protocol)
-        
-        if isopen:
-            self.transport.open()
-
-        return self._square
-
     def Shop(self, isopen=True):
         self.transport = THttpClient(self.host, customThrift=self.customThrift)
         self.transport.setCustomHeaders(self.headers)
