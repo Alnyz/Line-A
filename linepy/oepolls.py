@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from line import LINE
+from linepy import LINE
 from threading import Thread
 from functools import wraps
 import traceback
