@@ -34,7 +34,7 @@ class LINE(Auth, Models, Talk, Square, Call, Timeline, Shop):
         self.showQr = kwargs.pop('showQr', False)
         self.channelId = kwargs.pop('channelId', None)
         self.keepLoggedIn = kwargs.pop('keepLoggedIn', True)
-        self.customThrift = kwargs.pop('customThrift', False)
+        self.customThrift = kwargs.pop('customThrift', True)
         Auth.__init__(self)
         if not (idOrAuthToken or idOrAuthToken and passwd):
             self.loginWithQrCode()
