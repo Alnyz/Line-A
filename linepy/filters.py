@@ -67,6 +67,8 @@ class Filters:
 	event = create("Event", lambda _,m: bool(m.contentType == 18))
 	music = create("Music", lambda _,m: bool(m.contentType == 19))
 	mention = create("Mention", lambda _,m: bool('MENTION' in m.contentMetadata.keys()))
+	reply = create("Reply", lambda _,m: bool(m.contentMetadata["message_relation_type_code"] == "reply"))
+
 	#Instance
 	group = create("Group", lambda _,m: bool(m.toType == 2))
 	private = create("Private", lambda _,m: bool(m.toType == 0))
