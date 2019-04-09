@@ -110,11 +110,11 @@ class Filters:
 
 	class user(Filter, set):
 		def __init__(self, users: int or str or list = None):
-			users = [] if users is None else users if isinstance(user, list) else [users]
+			users = [] if users is None else users if isinstance(users, list) else [users]
 			super().__init__(
 				{"me" if i in ["me", "self"] else i.lower() if isinstance(i, str)  else i for i in users}
 				if isinstance(i, list) else
-				{"me" if users in ["me", "self"] else users.lower() if isinstance(i, str) else user}
+				{"me" if users in ["me", "self"] else users.lower() if isinstance(i, str) else users}
 			)
 
 		def __call__(self, message):
