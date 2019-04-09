@@ -2,7 +2,7 @@
 from akad.ttypes import Message, Location
 from random import randint
 
-import json, ntpath, asyncio
+import json, ntpath
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
@@ -20,14 +20,13 @@ class Talk(object):
     def __init__(self):
         self.isLogin = True
 
-    """User"""
 
     @loggedIn
     def acquireEncryptedAccessToken(self, featureType=2):
         return self.talk.acquireEncryptedAccessToken(featureType)
 
     @loggedIn
-    def getProfile(self):        
+    def getProfile(self):
         return self.talk.getProfile()
 
     @loggedIn
@@ -42,7 +41,7 @@ class Talk(object):
     def generateUserTicket(self):
         try:
             ticket = self.getUserTicket().id
-        except:
+        except Exception:
             self.reissueUserTicket()
             ticket = self.getUserTicket().id
         return ticket
@@ -79,7 +78,6 @@ class Talk(object):
     def addToHiddenContactMids(self, mid):
         return self.updateContactSetting(mid, 4, 'True')
 
-    """Operation"""
 
     @loggedIn
     def fetchOps(self, localRev, count, globalRev=0, individualRev=0):
@@ -93,10 +91,9 @@ class Talk(object):
     def getLastOpRevision(self):
         return self.poll.getLastOpRevision()
 
-    """Message"""
 
     @loggedIn
-    def sendMessage(self, to, text, contentMetadata={}, contentType=0):
+    def sendMessage(self, to, text, contentMetadata=None, contentType=0):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = text
@@ -115,7 +112,7 @@ class Talk(object):
         return self.talk.sendMessage(self._messageReq[to], msg)
 
     @loggedIn
-    def sendLocation(self, to, address, latitude, longitude, phone=None, contentMetadata={}):
+    def sendLocation(self, to, address, latitude, longitude, phone=None, contentMetadata=None):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = "Location by Hello World"
@@ -133,7 +130,7 @@ class Talk(object):
         return self.talk.sendMessage(self._messageReq[to], msg)
 
     @loggedIn
-    def sendMessageMusic(self, to, title=None, subText=None, url=None, iconurl=None, contentMetadata={}):
+    def sendMessageMusic(self, to, title=None, subText=None, url=None, iconurl=None, contentMetadata=None):
         """
         a : Android
         i : Ios
@@ -179,7 +176,7 @@ class Talk(object):
         return {'AGENT_NAME': title, 'AGENT_LINK': link, 'AGENT_ICON': iconlink}
 
     @loggedIn
-    def sendMessageWithFooter(self, to, text, title=None, link=None, iconlink=None, contentMetadata={}):
+    def sendMessageWithFooter(self, to, text, title=None, link=None, iconlink=None, contentMetadata=None):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = text
@@ -201,7 +198,7 @@ class Talk(object):
         return msg
 
     @loggedIn
-    def sendReplyMessage(self, relatedMessageId, to, text, contentMetadata={}, contentType=0):
+    def sendReplyMessage(self, relatedMessageId, to, text, contentMetadata=None, contentType=0):
         msg = self.generateReplyMessage(relatedMessageId)
         msg.to = to
         msg.text = text
@@ -226,7 +223,7 @@ class Talk(object):
         self.sendMessage(to, text, {'MENTION': str('{"MENTIONEES":' + json.dumps(arr) + '}')}, 0)
 
     @loggedIn
-    def sendMentionV2(self, to, text="", mids=[], isUnicode=False):
+    def sendMentionV2(self, to, text="", mids=None, isUnicode=False):
         arrData = ""
         arr = []
         mention = "@zeroxyuuki "
@@ -260,13 +257,8 @@ class Talk(object):
             raise Exception("Invalid mention position")
         self.sendMessage(to, textx, {'MENTION': str('{"MENTIONEES":' + json.dumps(arr) + '}')}, 0)
 
-    """ Usage:
-        @to Integer
-        @text String
-        @dataMid List of user Mid
-    """
     @loggedIn
-    def sendMessageWithMention(self, to, text='', dataMid=[]):
+    def sendMessageWithMention(self, to, text='', dataMid=None):
         arr = []
         list_text=''
         if '[list]' in text.lower():
@@ -305,7 +297,7 @@ class Talk(object):
             'STKID': stickerId
         }
         return self.sendMessage(to, '', contentMetadata, 7)
-        
+
     @loggedIn
     def sendContact(self, to, mid):
         contentMetadata = {'mid': mid}
@@ -349,7 +341,7 @@ class Talk(object):
     @loggedIn
     def removeMessage(self, messageId):
         return self.talk.removeMessage(messageId)
-    
+
     @loggedIn
     def removeAllMessages(self, lastMessageId):
         return self.talk.removeAllMessages(0, lastMessageId)
@@ -361,7 +353,7 @@ class Talk(object):
     @loggedIn
     def destroyMessage(self, chatId, messageId):
         return self.talk.destroyMessage(0, chatId, messageId, sessionId)
-    
+
     @loggedIn
     def sendChatChecked(self, consumer, messageId):
         return self.talk.sendChatChecked(0, consumer, messageId)
@@ -378,7 +370,6 @@ class Talk(object):
     def getPreviousMessagesV2WithReadCount(self, messageBoxId, endMessageId, messagesCount=50):
         return self.talk.getPreviousMessagesV2WithReadCount(messageBoxId, endMessageId, messagesCount)
 
-    """Object"""
 
     @loggedIn
     def sendImage(self, to, path):
@@ -432,8 +423,6 @@ class Talk(object):
         path = self.downloadFileURL(url, 'path')
         return self.sendFile(to, path, fileName)
 
-    """Contact"""
-        
     @loggedIn
     def blockContact(self, mid):
         return self.talk.blockContact(0, mid)
@@ -451,7 +440,7 @@ class Talk(object):
         return self.talk.findAndAddContactsByMid(0, mid, 0, '')
 
     @loggedIn
-    def findAndAddContactsByEmail(self, emails=[]):
+    def findAndAddContactsByEmail(self, emails=None):
         return self.talk.findAndAddContactsByEmail(0, emails)
 
     @loggedIn
@@ -499,13 +488,13 @@ class Talk(object):
         return self.talk.makeUserAddMyselfAsContact(contactOwnerMid)
 
     @loggedIn
-    def getContactWithFriendRequestStatus(self, id):
-        return self.talk.getContactWithFriendRequestStatus(id)
+    def getContactWithFriendRequestStatus(self, ids):
+        return self.talk.getContactWithFriendRequestStatus(ids)
 
     @loggedIn
     def reissueUserTicket(self, expirationTime=100, maxUseCount=100):
         return self.talk.reissueUserTicket(expirationTime, maxUseCount)
-    
+
     @loggedIn
     def cloneContactProfile(self, mid, channel):
         contact = self.getContact(mid)
@@ -519,8 +508,6 @@ class Talk(object):
             channel.updateProfileCoverById(channel.getProfileCoverId(mid))
         return self.updateProfile(profile)
 
-    """Group"""
-
     @loggedIn
     def getChatRoomAnnouncementsBulk(self, chatRoomMids):
         return self.talk.getChatRoomAnnouncementsBulk(chatRoomMids)
@@ -530,8 +517,8 @@ class Talk(object):
         return self.talk.getChatRoomAnnouncements(chatRoomMid)
 
     @loggedIn
-    def createChatRoomAnnouncement(self, chatRoomMid, type, contents):
-        return self.talk.createChatRoomAnnouncement(0, chatRoomMid, type, contents)
+    def createChatRoomAnnouncement(self, chatRoomMid, types, contents):
+        return self.talk.createChatRoomAnnouncement(0, chatRoomMid, types, contents)
 
     @loggedIn
     def removeChatRoomAnnouncement(self, chatRoomMid, announcementSeq):
@@ -540,7 +527,7 @@ class Talk(object):
     @loggedIn
     def getGroupWithoutMembers(self, groupId):
         return self.talk.getGroupWithoutMembers(groupId)
-    
+
     @loggedIn
     def findGroupByTicket(self, ticketId):
         return self.talk.findGroupByTicket(ticketId)
@@ -626,8 +613,6 @@ class Talk(object):
     def updateGroup(self, groupObject):
         return self.talk.updateGroup(0, groupObject)
 
-    """Room"""
-
     @loggedIn
     def createRoom(self, midlist):
         return self.talk.createRoom(0, midlist)
@@ -644,18 +629,14 @@ class Talk(object):
     def leaveRoom(self, roomId):
         return self.talk.leaveRoom(0, roomId)
 
-    """Call"""
-        
     @loggedIn
     def acquireCallTalkRoute(self, to):
         return self.talk.acquireCallRoute(to)
-    
-    """Report"""
 
     @loggedIn
-    def reportSpam(self, chatMid, memberMids=[], spammerReasons=[], senderMids=[], spamMessageIds=[], spamMessages=[]):
+    def reportSpam(self, chatMid, memberMids=None, spammerReasons=None, senderMids=None, spamMessageIds=None, spamMessages=None):
         return self.talk.reportSpam(chatMid, memberMids, spammerReasons, senderMids, spamMessageIds, spamMessages)
-        
+
     @loggedIn
-    def reportSpammer(self, spammerMid, spammerReasons=[], spamMessageIds=[]):
+    def reportSpammer(self, spammerMid, spammerReasons=None, spamMessageIds=None):
         return self.talk.reportSpammer(spammerMid, spammerReasons, spamMessageIds)

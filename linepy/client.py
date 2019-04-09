@@ -5,7 +5,6 @@ from .models import Models
 from .talk import Talk
 from .call import Call
 from .timeline import Timeline
-from .server import Server
 from .shop import Shop
 
 class LINE(Auth, Models, Talk, Call, Timeline, Shop):

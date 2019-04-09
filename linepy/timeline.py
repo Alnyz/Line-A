@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from .channel import Channel
 
-import json, time, base64, asyncio
+import json, time, base64
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
@@ -11,7 +10,7 @@ def loggedIn(func):
         else:
             args[0].callback.other('You want to call the function, you must login to LINE')
     return checkLogin
-    
+
 class Timeline(Channel):
 
     def __init__(self):
@@ -20,7 +19,7 @@ class Timeline(Channel):
         Channel.__init__(self, self.channel, self.channelId, False)
         self.tl = self.getChannelResult()
         self.__loginTimeline()
-        
+
     def __loginTimeline(self):
         self.server.setTimelineHeadersWithDict({
             'Content-Type': 'application/json',
@@ -31,8 +30,6 @@ class Timeline(Channel):
             'X-Line-ChannelToken': self.tl.channelAccessToken
         })
         self.profileDetail = self.getProfileDetail()
-
-    """Timeline"""
 
     @loggedIn
     def getFeed(self, postLimit=10, commentLimit=1, likeLimit=1, order='TIME'):
@@ -80,8 +77,6 @@ class Timeline(Channel):
         home = self.getProfileDetail(mid)
         params = {'userid': mid, 'oid': home['result']['objectId']}
         return self.server.urlEncode(self.server.LINE_OBS_DOMAIN, '/myhome/c/download.nhn', params)
-
-    """Post"""
 
     @loggedIn
     def createPost(self, text, holdingTime=None):
@@ -149,8 +144,6 @@ class Timeline(Channel):
         r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         return r.json()
 
-    """Group Post"""
-
     @loggedIn
     def createGroupPost(self, mid, text):
         payload = {'postInfo': {'readPermission': {'homeId': mid}}, 'sourceType': 'TIMELINE', 'contents': {'text': text}}
@@ -176,15 +169,13 @@ class Timeline(Channel):
         if r.status_code != 201:
             raise Exception('Delete album failure.')
         return True
-    
+
     @loggedIn
     def getGroupPost(self, mid, postLimit=10, commentLimit=1, likeLimit=1):
         params = {'homeId': mid, 'commentLimit': commentLimit, 'likeLimit': likeLimit, 'sourceType': 'TALKROOM'}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v45/post/list.json', params)
         r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
-
-    """Group Album"""
 
     @loggedIn
     def getGroupAlbum(self, mid):

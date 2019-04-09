@@ -4,11 +4,10 @@ _Bot line with Private Message's API_
 [![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-1.1-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
 ## Features
-- [x] Including MultiThread
-- [x] Simply login
-- [x] More than fasted
-- [x] Included simple Decorator
-
+- [x]   Including MultiThread
+- [x]   Simply login
+- [x]   More than fasted
+- [x]   Included simple Decorator
 
 ## install requirements attached
 `pip3 install -r requirements.txt`

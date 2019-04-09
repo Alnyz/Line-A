@@ -17,7 +17,6 @@ class Object(object):
             self.log("[%s] : Login success" % self.profile.displayName)
 
 
-    """Group"""
     @loggedIn
     def updateGroupPicture(self, groupId, path):
         files = {'file': open(path, 'rb')}
@@ -27,7 +26,6 @@ class Object(object):
             raise Exception('Update group picture failure.')
         return True
 
-    """Personalize"""
 
     @loggedIn
     def updateProfilePicture(self, path, type='p'):
@@ -40,7 +38,7 @@ class Object(object):
         if r.status_code != 201:
             raise Exception('Update profile picture failure.')
         return True
-        
+
     @loggedIn
     def updateProfileVideoPicture(self, path):
         try:
@@ -81,7 +79,6 @@ class Object(object):
         elif returnAs == 'bool':
             return True
 
-    """Object"""
 
     @loggedIn
     def uploadObjSquare(self, squareChatMid, path, type='image', returnAs='bool', name=None):

@@ -27,14 +27,14 @@ class Auth(object):
         self.call       = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_CALL_QUERY_PATH, self.customThrift).Call()
         self.channel    = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_CHAN_QUERY_PATH, self.customThrift).Channel()
         self.shop       = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_SHOP_QUERY_PATH, self.customThrift).Shop()
-        
+
         self.revision = self.poll.getLastOpRevision()
         self.isLogin = True
-                
 
-    def __loginRequest(self, type, data):
+
+    def __loginRequest(self, types, data):
         lReq = LoginRequest()
-        if type == '0':
+        if types == '0':
             lReq.type = LoginType.ID_CREDENTIAL
             lReq.identityProvider = data['identityProvider']
             lReq.identifier = data['identifier']
@@ -44,7 +44,7 @@ class Auth(object):
             lReq.systemName = data['systemName']
             lReq.certificate = data['certificate']
             lReq.e2eeVersion = data['e2eeVersion']
-        elif type == '1':
+        elif types == '1':
             lReq.type = LoginType.QRCODE
             lReq.keepLoggedIn = data['keepLoggedIn']
             if 'identityProvider' in data:
@@ -73,7 +73,6 @@ class Auth(object):
         self.tauth = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_AUTH_QUERY_PATH).Talk(isopen=False)
 
         rsaKey = self.tauth.getRSAKeyInfo(self.provider)
-        
         message = (chr(len(rsaKey.sessionKey)) + rsaKey.sessionKey +
                    chr(len(_id)) + _id +
                    chr(len(passwd)) + passwd).encode('utf-8')
@@ -83,7 +82,7 @@ class Auth(object):
         try:
             with open(_id + '.crt', 'r') as f:
                 self.certificate = f.read()
-        except:
+        except Exception:
             if self.certificate is not None:
                 if os.path.exists(self.certificate):
                     with open(self.certificate, 'r') as f:
@@ -136,7 +135,6 @@ class Auth(object):
 
         elif result.type == LoginResultType.REQUIRE_QRCODE:
             self.loginWithQrCode()
-            pass
 
         elif result.type == LoginResultType.SUCCESS:
             self.certificate = result.certificate
@@ -179,7 +177,7 @@ class Auth(object):
                 return False
         else:
             raise Exception('Login failed')
-          
+
     def loginWithAuthToken(self, authToken=None):
         if authToken is None:
             raise Exception('Please provide Auth Token')
@@ -192,8 +190,8 @@ class Auth(object):
         self.authToken = authToken
         self.__loadSession()
 
-    def __defaultCallback(self, str):
-        print(str)
+    def __defaultCallback(self, string):
+        print(string)
 
     def logout(self):
         self.auth.logoutZ()

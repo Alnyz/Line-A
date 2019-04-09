@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 from io import BytesIO
 from six.moves import urllib, http_client
-import os, socket, sys, warnings, base64, time, json, asyncio, six
+import os, socket, sys, warnings, base64, time, json, six
 
 from thrift.transport.TTransport import TTransportBase
-try:
-    from thrift.protocol import fastbinary
-except ImportError:
-    fastbinary = None
 
 class THttpClient(TTransportBase):
     """Http implementation of TTransport base."""
@@ -34,7 +30,7 @@ class THttpClient(TTransportBase):
         else:
             parsed = urllib.parse.urlparse(uri_or_host)
             self.scheme = parsed.scheme
-            
+
             assert self.scheme in ('http', 'https')
             if self.scheme == 'http':
                 self.port = parsed.port or http_client.HTTP_PORT

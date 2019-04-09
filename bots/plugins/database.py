@@ -69,15 +69,4 @@ class DataBase(object):
 		if admin:return [i["_id"] for i in self.col.admin_db.find()]
 		elif bots:return [i["_id"] for i in self.col.bot_db.find()]
 		elif groups:return [i["_id"] for i in self.col.group_db.find()]
-		elif users:	return [i["_id"] for i in self.col.users_db.find()]
-				
-
-		if admin:			
-			return [i["_id"] for i in self.col.admin_db.find()]
-		elif bots:		
-			return [i["_id"] for i in self.col.bot_db.find()]
-		elif groups:			
-			return [i["_id"] for i in self.col.group_db.find()]
-		elif users:			
-			return [i["_id"] for i in self.col.users_db.find()]
-				
+		elif users:return [i["_id"] for i in self.col.users_db.find()]
