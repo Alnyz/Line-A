@@ -1,6 +1,6 @@
 from .client import LINE
 from .channel import Channel
-from .oepolls import OEPolls
+from .oepolls import OEPoll
 from .auth import Auth
 from .models import Models
 from .talk import Talk
@@ -23,7 +23,7 @@ __all__ = [
 	'LINE',
 	'Filters',
  	'Channel',
- 	'OEPolls'
+ 	'OEPoll'
  	'OpType',
  	'__modified__',
  	'Auth',

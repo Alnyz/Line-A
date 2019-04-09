@@ -110,11 +110,11 @@ class Filters:
 
 	class user(Filter, set):
 		def __init__(self, users: int or str or list = None):
-			users = [] if users is None else users if type(users) is list else [users]
+			users = [] if users is None else users if isinstance(user, list) else [users]
 			super().__init__(
-				{"me" if i in ["me", "self"] else i.lower() if type(i) is str else i for i in users}
-				if type(users) is list else
-				{"me" if users in ["me", "self"] else users.lower() if type(users) is str else user}
+				{"me" if i in ["me", "self"] else i.lower() if isinstance(i, str)  else i for i in users}
+				if isinstance(i, list) else
+				{"me" if users in ["me", "self"] else users.lower() if isinstance(i, str) else user}
 			)
 
 		def __call__(self, message):
@@ -127,11 +127,11 @@ class Filters:
 
 	class chat(Filter, set):
 		def __init__(self, chats: int or str or list = None):
-			chats = [] if chats is None else chats if type(chats) is list else [chats]
+			chats = [] if chats is None else chats if isinstance(chats, list) else [chats]
 			super().__init__(
-                {i.lower() if type(i) is str else i for i in chats}
-                if type(chats) is list else
-                {chats.lower() if type(chats) is str else chats}
+                {i.lower() if isinstance(i, str)  else i for i in chats}
+                if isinstance(chats, list) else
+                {chats.lower() if isinstance(chats, str) else chats}
             )
 		def __call__(self, message):
 			return bool(

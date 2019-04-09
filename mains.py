@@ -1,4 +1,4 @@
-from linepy import (OEPolls, LINE)
+from linepy import (OEPoll, LINE)
 from akad.ttypes import Message
 from bots.plugins.database import DataBase
 import traceback
@@ -17,7 +17,7 @@ class MainBots(object):
 			self.line = LINE()
 
 		self.img_url = "http://dl.profile.line-cdn.net/"
-		self.poll = OEPolls(self.line)
+		self.poll = OEPoll(self.line)
 
 	def run(self):
 		try:
