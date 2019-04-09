@@ -23,7 +23,7 @@ __all__ = [
 	'LINE',
 	'Filters',
  	'Channel',
- 	'OEPoll'
+ 	'OEPoll',
  	'OpType',
  	'__modified__',
  	'Auth',
