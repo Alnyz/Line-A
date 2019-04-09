@@ -15,7 +15,7 @@ class Server(Config):
     def parseUrl(self, path):
         return self.LINE_HOST_DOMAIN + path
 
-    def urlEncode(self, url, path, params=[]):
+    def urlEncode(self, url, path, params=None):
         return url + path + '?' + urllib.parse.urlencode(params)
 
     def getJson(self, url, allowHeader=False):

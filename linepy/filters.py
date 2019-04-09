@@ -41,13 +41,12 @@ class OrFilter(Filter):
 def create(name: str, func: callable, **kwargs) -> type:
 	d = {"__call__": func}
 	d.update(kwargs)
-	
 	return type(name, (Filter,), d)()
-    
+
 class Filters:
-	
+
 	create = create
-	
+
 	#content
 	text = create("Text", lambda _,m: bool(m.contentType == 0))
 	image = create("Image", lambda _,m: bool(m.contentType == 1))
@@ -73,13 +72,13 @@ class Filters:
 	group = create("Group", lambda _,m: bool(m.toType == 2))
 	private = create("Private", lambda _,m: bool(m.toType == 0))
 	both = create("Both", lambda _,m: bool(m.toType in [0, 2, 1]))
-	
+
 	#update group
 	update_name = create("UpdateName", lambda _,m: bool(m.param3 == '1'))
 	update_image = create("UpdateImage", lambda _,m: bool(m.param3 == '2'))
 	update_qr = create("UpdateQr", lambda _,m: bool(m.param3 == '4'))
 	update_all = create("UpdateAll", lambda _,m: bool(m.param3 in ["1", "2", "4"]))
-	
+
 	@staticmethod
 	def command(commands: str or list,
 					prefix: str or list = "/",
@@ -91,7 +90,7 @@ class Filters:
 				for i in _.p:
 					if m.text.startswith(i):
 						t = m.text.split(_.s)
-						c, a = t[0][len(i):], t[1:]												
+						c, a = t[0][len(i):], t[1:]
 						c = c if _.cs else c.lower()
 						m.command = ([c] + a) if c in _.c else None						
 			return bool(m.command)
@@ -101,14 +100,14 @@ class Filters:
 		c = {commands if case_sensitive
 				else commands.lower()}
 		if not isinstance(commands, list)
-		else {c if case_sensitive				
+		else {c if case_sensitive
 				else c.lower()
 				for c in commands},
 		p=set(prefix) if prefix else {""},
 		s=separator,
 		cs=case_sensitive
 		)
-		
+
 	class user(Filter, set):
 		def __init__(self, users: int or str or list = None):
 			users = [] if users is None else users if type(users) is list else [users]
@@ -117,7 +116,7 @@ class Filters:
 				if type(users) is list else
 				{"me" if users in ["me", "self"] else users.lower() if type(users) is str else user}
 			)
-			
+
 		def __call__(self, message):
 			return bool(
 				message._from
@@ -125,7 +124,7 @@ class Filters:
 					or ("me" in self)
 				)
 			)
-			
+
 	class chat(Filter, set):
 		def __init__(self, chats: int or str or list = None):
 			chats = [] if chats is None else chats if type(chats) is list else [chats]

@@ -66,7 +66,7 @@ class Auth(object):
             self.provider = IdentityProvider.LINE       # LINE
         else:
             self.provider = IdentityProvider.NAVER_KR   # NAVER
-        
+
         if self.appName is None:
             self.appName=self.server.APP_NAME
         self.server.setHeaders('X-Line-Application', self.appName)
@@ -102,7 +102,7 @@ class Auth(object):
         })
 
         result = self.auth.loginZ(lReq)
-        
+
         if result.type == LoginResultType.REQUIRE_DEVICE_CONFIRM:
             self.callback.PinVerified(result.pinCode)
 
@@ -120,7 +120,7 @@ class Auth(object):
                 result = self.auth.loginZ(lReq)
             except:
                 raise Exception('Login failed')
-            
+
             if result.type == LoginResultType.SUCCESS:
                 if result.certificate is not None:
                     with open(_id + '.crt', 'w') as f:
@@ -154,9 +154,9 @@ class Auth(object):
         self.server.setHeaders('X-Line-Access', qrCode.verifier)
 
         getAccessKey = self.server.getJson(self.server.parseUrl(self.server.LINE_CERTIFICATE_PATH), allowHeader=True)
-        
+
         self.auth = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_LOGIN_QUERY_PATH).Auth(isopen=False)
-        
+
         try:
             lReq = self.__loginRequest('1', {
                 'keepLoggedIn': self.keepLoggedIn,

@@ -9,7 +9,7 @@ def loggedIn(func):
         else:
             args[0].callback.other('You want to call the function, you must login to LINE')
     return checkLogin
-    
+
 class Object(object):
 
     def __init__(self):
@@ -73,7 +73,7 @@ class Object(object):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
         objId = self.uploadObjHome(path, type='image', returnAs='objId')
-        home = self.updateProfileCoverById(objId)
+        self.updateProfileCoverById(objId)
         if returnAs == 'objId':
             return objId
         elif returnAs == 'bool':

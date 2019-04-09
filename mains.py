@@ -1,7 +1,6 @@
 from linepy import (OEPolls, LINE)
 from akad.ttypes import Message
 from bots.plugins.database import DataBase
-from bots.plugins.configs import Filters
 import traceback
 
 class MainBots(object):
@@ -26,7 +25,7 @@ class MainBots(object):
 		except Exception:
 			print(traceback.format_exc())
 
-	def log(self, logger):
+	def logs(self, logger):
 		def decorator(func):
 			def wraper(*arg, **kwg):
 				try:

@@ -315,7 +315,7 @@ class Talk(object):
         return self.sendMessage(to, '', contentMetadata, 9)
 
     @loggedIn
-    def sendMessageAwaitCommit(self, to, text, contentMetadata={}, contentType=0):
+    def sendMessageAwaitCommit(self, to, text, contentMetadata=None, contentType=0):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = text

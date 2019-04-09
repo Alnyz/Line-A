@@ -4,18 +4,14 @@ from .object import Object
 from random import randint
 
 import json, shutil, time, os, base64, tempfile
-    
+
 class Models(Object):
-        
+
     def __init__(self):
         Object.__init__(self)
 
-    """Text"""
-
-    def log(self, text):
+    def logs(self, text):
         print("[%s] %s" % (str(datetime.now()), text))
-
-    """File"""
 
     def saveFile(self, path, raw):
         with open(path, 'wb') as f:
@@ -44,8 +40,6 @@ class Models(Object):
                 return r.raw
         else:
             raise Exception('Download file failure.')
-
-    """Generator"""
 
     def genTempFile(self, returnAs='path'):
         try:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from io import BytesIO
 from six.moves import urllib, http_client
-import os, socket, sys, warnings, base64, time, json, six
+import os, socket, sys, warnings, base64, time, six
 
 from thrift.transport.TTransport import TTransportBase
 
@@ -40,7 +40,7 @@ class THttpClient(TTransportBase):
             self.path = parsed.path
             if parsed.query:
                 self.path += '?%s' % parsed.query
-        proxy = None
+
         self.realhost = self.realport = self.proxy_auth = None
         self.__wbuf = BytesIO()
         if customThrift:
@@ -50,7 +50,7 @@ class THttpClient(TTransportBase):
                 self.__http = http_client.HTTPSConnection(self.host, self.port)
         else:
             self.__http = None
-               
+
         self.__http_response = None
         self.__timeout = None
         self.__custom_headers = None
@@ -176,4 +176,3 @@ class THttpClient(TTransportBase):
     # Decorate if we know how to timeout
     if hasattr(socket, 'getdefaulttimeout'):
         flush = __withTimeout(flush)
-        

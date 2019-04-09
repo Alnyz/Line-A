@@ -18,8 +18,8 @@ class Callback(object):
                 import pyqrcode
                 url = pyqrcode.create(url)
                 self.callback(url.terminal('green', 'white', 1))
-            except:
+            except Exception:
                 pass
 
-    def default(self, str):
-        self.callback(str)
+    def default(self, string):
+        self.callback(string)
