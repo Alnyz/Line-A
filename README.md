@@ -11,8 +11,7 @@ _Bot line with Private Message's API_
 
 
 ## install requirements attached
-
-    pip3 install -r requirements.txt
+`pip3 install -r requirements.txt`
 
 ## Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
  
