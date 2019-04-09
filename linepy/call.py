@@ -26,7 +26,7 @@ class Call(object):
     @loggedIn
     def getGroupCall(self, ChatMid):
         return self.call.getGroupCall(ChatMid)
-        
+
     @loggedIn
     def inviteIntoGroupCall(self, chatId, contactIds=[], mediaType=MediaType.AUDIO):
         return self.call.inviteIntoGroupCall(chatId, contactIds, mediaType)
