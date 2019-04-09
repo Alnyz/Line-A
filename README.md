@@ -14,7 +14,7 @@ _Bot line with Private Message's API_
 - [x]  Included simple Decorator
 
 ## Installing
-* install requirements attached
+- install requirements attached
 
      `pip3 install -r requirements.txt`     
  
