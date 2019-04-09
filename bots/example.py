@@ -4,7 +4,7 @@ sys.path.append("../")
 from mains import  MainBots
 from linepy import Filters
 
-init = MainBots(token="YOUR TOKEN")
+init = MainBots(token="<YOUR TOKEN>")
 line = init.line
 
 @init.poll.is_message(13)
