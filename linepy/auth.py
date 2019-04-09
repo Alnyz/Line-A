@@ -4,7 +4,7 @@ from .server import Server
 from .session import Session
 from .callback import Callback
 
-import rsa, os, asyncio
+import rsa, os
 
 class Auth(object):
     isLogin     = False
