@@ -19,7 +19,7 @@ _Bot line with Private Message's API_
 ## Author
 [Line](line.me/ti/p/~line.bngsad) | [Telegram](t.me/alnyz)
 
-## Thanks to:
+## Thanks to
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
 
 >### TODO: if you have any idea or found some little bug or something, free for report to Author
