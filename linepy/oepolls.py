@@ -7,7 +7,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
-class OEPolls(object):
+class OEPoll(object):
 	def __init__(self, client):
 		if not isinstance(client, LINE):
 			raise Exception('You need to set LINE instance to initialize OEPoll')

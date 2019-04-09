@@ -43,8 +43,8 @@ class Config(object):
         'DEFAULT': '8.11.0'
     }
 
-    APP_TYPE    = 'IOS'
-    APP_VER     = APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
+    APP_TYPE    = 'IOSIPAD'
+    APP_VER     = "8.11.0"#APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
     CARRIER     = '51089, 1-0'
     SYSTEM_NAME = 'FDLRCN'
     SYSTEM_VER  = '7.0.0'

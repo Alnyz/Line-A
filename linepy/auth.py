@@ -167,7 +167,7 @@ class Auth(object):
                 'e2eeVersion': 0
             })
             result = self.auth.loginZ(lReq)
-        except:
+        except Exception:
             raise Exception('Login failed')
 
         if result.type == LoginResultType.SUCCESS:

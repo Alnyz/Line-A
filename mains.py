@@ -1,4 +1,4 @@
-from linepy import (OEPoll, LINE)
+from linepy import OEPoll, LINE
 from akad.ttypes import Message
 from bots.plugins.database import DataBase
 import traceback
