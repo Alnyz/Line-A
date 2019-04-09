@@ -1,5 +1,6 @@
 akad
 requests
+thrift
 rsa
 PyQRCode
 pymongo
