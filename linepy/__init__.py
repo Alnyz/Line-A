@@ -1,6 +1,6 @@
 from .client import LINE
 from .channel import Channel
-from linepy.oepolls import OEPoll
+from .oepolls import OEPoll
 from .auth import Auth
 from .models import Models
 from .talk import Talk
