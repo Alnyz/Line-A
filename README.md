@@ -3,15 +3,11 @@ _Bot line with Private Message's API_
 
 [![python3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/downloads/release/python-372/) [![License](https://img.shields.io/badge/MIT-License-blue.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/Version-1.1-red.svg) ![Travis](https://travis-ci.org/dyseo/A.svg?branch=master)
 
-
-
-## _Simplify wrapper Unofficial Bot Python using Library from [Linepy](https://pypi.org/project/linepy/3.0.8/)_
-
 ## Features
-- [x]  Including MultiThread
-- [x]  Simply login
-- [x]  More than fasted
-- [x]  Included simple Decorator
+- [x] Including MultiThread
+- [x] Simply login
+- [x] More than fasted
+- [x] Included simple Decorator
 
 ## Installing
 - install requirements attached
@@ -28,4 +24,4 @@ _Bot line with Private Message's API_
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
 
 
-> ### TODO: if you have any idea or found some little bug or something, free for report to Author
+>### TODO: if you have any idea or found some little bug or something, free for report to Author
