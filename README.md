@@ -5,7 +5,7 @@ _Bot line with Private Message's API_
 
 
 
-### Simplify wrapper Unofficial Bot Python using Library from [Linepy](https://pypi.org/project/linepy/3.0.8/)
+## _Simplify wrapper Unofficial Bot Python using Library from [Linepy](https://pypi.org/project/linepy/3.0.8/)_
 
 ## Features
 - [x] Including MultiThread
@@ -22,7 +22,7 @@ _Bot line with Private Message's API_
  ## Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
  
  
-# Author
+## Author
 [Line](line.me/ti/p/~line.bngsad) | [Telegram](t.me/alnyz)
 
 ## Thanks to:
