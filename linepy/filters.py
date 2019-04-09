@@ -113,7 +113,7 @@ class Filters:
 			users = [] if users is None else users if isinstance(users, list) else [users]
 			super().__init__(
 				{"me" if i in ["me", "self"] else i.lower() if isinstance(i, str)  else i for i in users}
-				if isinstance(i, list) else
+				if isinstance(users, list) else
 				{"me" if users in ["me", "self"] else users.lower() if isinstance(i, str) else users}
 			)
 
