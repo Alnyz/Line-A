@@ -9,10 +9,9 @@ _Bot line with Private Message's API_
 - [x] More than fasted
 - [x] Included simple Decorator
 
-## Installing
-- install requirements attached
 
-     `pip3 install -r requirements.txt`     
+## install requirements attached
+    `pip3 install -r requirements.txt`     
  
 
 ## Look This [Example](https://github.com/dyseo/A/blob/master/bots) for more detail
@@ -22,6 +21,5 @@ _Bot line with Private Message's API_
 
 ## Thanks to:
 Fadhiil Rachman / [Linepy](https://github.com/fadhiilrachman/line-py)
-
 
 >### TODO: if you have any idea or found some little bug or something, free for report to Author
