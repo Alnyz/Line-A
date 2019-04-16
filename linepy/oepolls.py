@@ -41,7 +41,7 @@ class OEPoll(object):
 		msg = ops.message
 		for i in range(len(self.func_handler)):
 			if func in self.func_handler[i]:
-				if ops.type not in [26, 25]:
+				if len(self.func_handler[i][func]) < 1:
 					self.do_job(c=i, ops=ops)
 				else:
 					if self.func_handler[i][func][0] != None:
