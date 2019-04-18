@@ -11,32 +11,32 @@ class Session:
         self.customThrift = customThrift
 
     def Auth(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._auth  = AuthService.Client(self.protocol)
+        transport = THttpClient(self.host, customThrift=self.customThrift)
+        transport.setCustomHeaders(self.headers)
+        protocol = TCompactProtocol.TCompactProtocol(transport)
+        _auth  = AuthService.Client(protocol)
 
         if isopen:
-            self.transport.open()
+            transport.open()
 
-        return self._auth
+        return _auth
 
     def Talk(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._talk  = TalkService.Client(self.protocol)
+        transport = THttpClient(self.host, customThrift=self.customThrift)
+        transport.setCustomHeaders(self.headers)
+        protocol = TCompactProtocol.TCompactProtocol(transport)
+        _talk  = TalkService.Client(protocol)
 
         if isopen:
-            self.transport.open()
+            transport.open()
 
-        return self._talk
+        return _talk
 
     def Channel(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._channel  = ChannelService.Client(self.protocol)
+        transport = THttpClient(self.host, customThrift=self.customThrift)
+        transport.setCustomHeaders(self.headers)
+        protocol = TCompactProtocol.TCompactProtocol(transport)
+        _channel  = ChannelService.Client(protocol)
 
         if isopen:
             self.transport.open()
@@ -44,23 +44,23 @@ class Session:
         return self._channel
 
     def Call(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._call  = CallService.Client(self.protocol)
+        transport = THttpClient(self.host, customThrift=self.customThrift)
+        transport.setCustomHeaders(self.headers)
+        protocol = TCompactProtocol.TCompactProtocol(transport)
+        _call  = CallService.Client(protocol)
 
         if isopen:
-            self.transport.open()
+            transport.open()
 
-        return self._call
+        return _call
 
     def Shop(self, isopen=True):
-        self.transport = THttpClient(self.host, customThrift=self.customThrift)
-        self.transport.setCustomHeaders(self.headers)
-        self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        self._shop  = ShopService.Client(self.protocol)
+        transport = THttpClient(self.host, customThrift=self.customThrift)
+        transport.setCustomHeaders(self.headers)
+        protocol = TCompactProtocol.TCompactProtocol(transport)
+        self_shop  = ShopService.Client(protocol)
 
         if isopen:
-            self.transport.open()
+            transport.open()
 
-        return self._shop
+        return _shop
