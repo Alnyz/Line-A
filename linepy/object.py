@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json, time, ntpath
-
+from ffmpy import FFmpeg
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
         if args[0].isLogin:
@@ -41,7 +41,6 @@ class Object(object):
     @loggedIn
     def updateProfileVideoPicture(self, path):
         try:
-            from ffmpy import FFmpeg
             files = {'file': open(path, 'rb')}
             data = {'params': self.genOBSParams({'oid': self.profile.mid,'ver': '2.0','type': 'video','cat': 'vp.mp4'})}
             r_vp = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/talk/vp/upload.nhn', data=data, files=files)
@@ -51,8 +50,8 @@ class Object(object):
             ff = FFmpeg(inputs={'%s' % path: None}, outputs={'%s' % path_p: ['-ss', '00:00:2', '-vframes', '1']})
             ff.run()
             self.updateProfilePicture(path_p, 'vp')
-        except:
-            raise Exception('You should install FFmpeg and ffmpy from pypi')
+        except Exception as e:
+            print(e)
 
     @loggedIn
     def updateVideoAndPictureProfile(self, path_p, path, returnAs='bool'):
