@@ -58,7 +58,7 @@ class Session:
         transport = THttpClient(self.host, customThrift=self.customThrift)
         transport.setCustomHeaders(self.headers)
         protocol = TCompactProtocol.TCompactProtocol(transport)
-        self_shop  = ShopService.Client(protocol)
+        _shop  = ShopService.Client(protocol)
 
         if isopen:
             transport.open()
