@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-import json, time, ntpath, asyncio
+import json, time, ntpath
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
@@ -28,10 +27,10 @@ class Object(object):
 
 
     @loggedIn
-    def updateProfilePicture(self, path, type='p'):
+    def updateProfilePicture(self, path, types='p'):
         files = {'file': open(path, 'rb')}
         params = {'oid': self.profile.mid,'type': 'image'}
-        if type == 'vp':
+        if types == 'vp':
             params.update({'ver': '2.0', 'cat': 'vp.mp4'})
         data = {'params': self.genOBSParams(params)}
         r = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/talk/p/upload.nhn', data=data, files=files)
@@ -81,10 +80,10 @@ class Object(object):
 
 
     @loggedIn
-    def uploadObjSquare(self, squareChatMid, path, type='image', returnAs='bool', name=None):
+    def uploadObjSquare(self, squareChatMid, path, types='image', returnAs='bool', name=None):
         if returnAs not in ['bool']:
             raise Exception('Invalid returnAs value')
-        if type not in ['image','gif','video','audio','file']:
+        if types not in ['image','gif','video','audio','file']:
             raise Exception('Invalid type value')
         try:
             import magic
@@ -101,13 +100,13 @@ class Object(object):
             'type': '%s' % str(type),
             'ver': '1.0'
         }
-        if type == 'video':
+        if types == 'video':
             params.update({'duration': '60000'})
-        elif type == 'audio':
+        elif types == 'audio':
             params.update({'duration': '60000'})
-        elif type == 'gif':
+        elif types == 'gif':
             params.update({'type': 'image', 'cat': 'original'})
-        elif type == 'file':
+        elif types == 'file':
             params.update({'name': name})
         headers = self.server.additionalHeaders(self.server.Headers, {
             'Content-Type': contentType,
@@ -122,17 +121,17 @@ class Object(object):
             return True
 
     @loggedIn
-    def uploadObjTalk(self, path, type='image', returnAs='bool', objId=None, to=None, name=None):
+    def uploadObjTalk(self, path, types='image', returnAs='bool', objId=None, to=None, name=None):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
         if type not in ['image','gif','video','audio','file']:
             raise Exception('Invalid type value')
         headers=None
         files = {'file': open(path, 'rb')}
-        if type == 'image' or type == 'video' or type == 'audio' or type == 'file':
+        if types == 'image' or type == 'video' or type == 'audio' or type == 'file':
             e_p = self.server.LINE_OBS_DOMAIN + '/talk/m/upload.nhn'
             data = {'params': self.genOBSParams({'oid': objId,'size': len(open(path, 'rb').read()),'type': type, 'name': name})}
-        elif type == 'gif':
+        elif types == 'gif':
             e_p = self.server.LINE_OBS_DOMAIN + '/r/talk/m/reqseq'
             files = None
             data = open(path, 'rb').read()
@@ -159,16 +158,16 @@ class Object(object):
             return True
 
     @loggedIn
-    def uploadObjHome(self, path, type='image', returnAs='bool', objId=None):
+    def uploadObjHome(self, path, types='image', returnAs='bool', objId=None):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
-        if type not in ['image','video','audio']:
+        if types not in ['image','video','audio']:
             raise Exception('Invalid type value')
-        if type == 'image':
+        if types == 'image':
             contentType = 'image/jpeg'
-        elif type == 'video':
+        elif types == 'video':
             contentType = 'video/mp4'
-        elif type == 'audio':
+        elif types == 'audio':
             contentType = 'audio/mp3'
         if not objId:
             objId = int(time.time())
