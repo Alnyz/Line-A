@@ -112,7 +112,7 @@ class Talk(object):
         return self.talk.sendMessage(self._messageReq[to], msg)
 
     @loggedIn
-    def sendLocation(self, to, address, latitude, longitude, phone=None, contentMetadata=None):
+    def sendLocation(self, to=None, address=None, latitude=None, longitude=None, phone=None, contentMetadata=None):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = "Location by Hello World"
@@ -130,7 +130,7 @@ class Talk(object):
         return self.talk.sendMessage(self._messageReq[to], msg)
 
     @loggedIn
-    def sendMessageMusic(self, to, title=None, subText=None, url=None, iconurl=None, contentMetadata=None):
+    def sendMessageMusic(self, to=None, title=None, subText=None, url=None, iconurl=None, contentMetadata=None):
         """
         a : Android
         i : Ios
@@ -176,7 +176,7 @@ class Talk(object):
         return {'AGENT_NAME': title, 'AGENT_LINK': link, 'AGENT_ICON': iconlink}
 
     @loggedIn
-    def sendMessageWithFooter(self, to, text, title=None, link=None, iconlink=None, contentMetadata=None):
+    def sendMessageWithFooter(self, to=None, text=None, title=None, link=None, iconlink=None, contentMetadata=None):
         msg = Message()
         msg.to, msg._from = to, self.profile.mid
         msg.text = text
@@ -198,19 +198,18 @@ class Talk(object):
         return msg
 
     @loggedIn
-    def sendReplyMessage(self, relatedMessageId, to, text, contentMetadata=None, contentType=0):
+    def sendReplyMessage(self, relatedMessageId, to, text):
         msg = self.generateReplyMessage(relatedMessageId)
         msg.to = to
         msg.text = text
-        msg.contentType = contentType
-        msg.contentMetadata = contentMetadata
+        msg.contentType = 0
         if to not in self._messageReq:
             self._messageReq[to] = -1
         self._messageReq[to] += 1
         return self.talk.sendMessage(self._messageReq[to], msg)
 
     @loggedIn
-    def sendMention(self, to, mid, firstmessage='', lastmessage=''):
+    def sendMention(self, to=None, mid=None, firstmessage='', lastmessage=''):
         arrData = ""
         text = "%s " %(str(firstmessage))
         arr = []
@@ -223,7 +222,7 @@ class Talk(object):
         self.sendMessage(to, text, {'MENTION': str('{"MENTIONEES":' + json.dumps(arr) + '}')}, 0)
 
     @loggedIn
-    def sendMentionV2(self, to, text="", mids=None, isUnicode=False):
+    def sendMentionV2(self, to=None, text="", mids=None, isUnicode=False):
         arrData = ""
         arr = []
         mention = "@zeroxyuuki "
@@ -258,7 +257,7 @@ class Talk(object):
         self.sendMessage(to, textx, {'MENTION': str('{"MENTIONEES":' + json.dumps(arr) + '}')}, 0)
 
     @loggedIn
-    def sendMessageWithMention(self, to, text='', dataMid=None):
+    def sendMessageWithMention(self, to=None, text='', dataMid=None):
         arr = []
         list_text=''
         if '[list]' in text.lower():
@@ -363,7 +362,7 @@ class Talk(object):
     @loggedIn
     def sendImage(self, to, path):
         objectId = self.sendMessage(to=to, text=None, contentType = 1).id
-        return self.uploadObjTalk(path=path, type='image', returnAs='bool', objId=objectId)
+        return self.uploadObjTalk(path=path, types='image', returnAs='bool', objId=objectId)
 
     @loggedIn
     def sendImageWithURL(self, to, url):
@@ -372,7 +371,7 @@ class Talk(object):
 
     @loggedIn
     def sendGIF(self, to, path):
-        return self.uploadObjTalk(path=path, type='gif', returnAs='bool', to=to)
+        return self.uploadObjTalk(path=path, types='gif', returnAs='bool', to=to)
 
     @loggedIn
     def sendGIFWithURL(self, to, url):
@@ -382,7 +381,7 @@ class Talk(object):
     @loggedIn
     def sendVideo(self, to, path):
         objectId = self.sendMessage(to=to, text=None, contentMetadata={'VIDLEN': '60000','DURATION': '60000'}, contentType = 2).id
-        return self.uploadObjTalk(path=path, type='video', returnAs='bool', objId=objectId)
+        return self.uploadObjTalk(path=path, types='video', returnAs='bool', objId=objectId)
 
     @loggedIn
     def sendVideoWithURL(self, to, url):
@@ -392,7 +391,7 @@ class Talk(object):
     @loggedIn
     def sendAudio(self, to, path):
         objectId = self.sendMessage(to=to, text=None, contentType = 3).id
-        return self.uploadObjTalk(path=path, type='audio', returnAs='bool', objId=objectId)
+        return self.uploadObjTalk(path=path, types='audio', returnAs='bool', objId=objectId)
 
     @loggedIn
     def sendAudioWithURL(self, to, url):
@@ -405,7 +404,7 @@ class Talk(object):
             file_name = ntpath.basename(path)
         file_size = len(open(path, 'rb').read())
         objectId = self.sendMessage(to=to, text=None, contentMetadata={'FILE_NAME': str(file_name),'FILE_SIZE': str(file_size)}, contentType = 14).id
-        return self.uploadObjTalk(path=path, type='file', returnAs='bool', objId=objectId, name=file_name)
+        return self.uploadObjTalk(path=path, types='file', returnAs='bool', objId=objectId, name=file_name)
 
     @loggedIn
     def sendFileWithURL(self, to, url, fileName=''):
@@ -623,7 +622,7 @@ class Talk(object):
         return self.talk.acquireCallRoute(to)
 
     @loggedIn
-    def reportSpam(self, chatMid, memberMids=None, spammerReasons=None, senderMids=None, spamMessageIds=None, spamMessages=None):
+    def reportSpam(self, chatMid=None, memberMids=None, spammerReasons=None, senderMids=None, spamMessageIds=None, spamMessages=None):
         return self.talk.reportSpam(chatMid, memberMids, spammerReasons, senderMids, spamMessageIds, spamMessages)
 
     @loggedIn
