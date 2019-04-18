@@ -5,3 +5,4 @@ rsa
 PyQRCode
 pymongo
 pymongo[srv]
+ffmpy
