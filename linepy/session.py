@@ -56,7 +56,7 @@ class Session:
 
     def Shop(self, isopen=True):
         shop_transport = THttpClient(self.host, customThrift=self.customThrift)
-        ahop_transport.setCustomHeaders(self.headers)
+        shop_transport.setCustomHeaders(self.headers)
         shop_protocol = TCompactProtocol.TCompactProtocol(shop_transport)
         _shop  = ShopService.Client(shop_protocol)
 
