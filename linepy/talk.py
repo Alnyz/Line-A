@@ -315,17 +315,6 @@ class Talk(object):
         return self.sendMessage(to, '', contentMetadata, 9)
 
     @loggedIn
-    def sendMessageAwaitCommit(self, to, text, contentMetadata=None, contentType=0):
-        msg = Message()
-        msg.to, msg._from = to, self.profile.mid
-        msg.text = text
-        msg.contentType, msg.contentMetadata = contentType, contentMetadata
-        if to not in self._messageReq:
-            self._messageReq[to] = -1
-        self._messageReq[to] += 1
-        return self.talk.sendMessageAwaitCommit(self._messageReq[to], msg)
-
-    @loggedIn
     def unsendMessage(self, messageId):
         self._unsendMessageReq += 1
         return self.talk.unsendMessage(self._unsendMessageReq, messageId)
