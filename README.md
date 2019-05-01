@@ -14,7 +14,7 @@ ___
 ## install requirements attached
 `pip3 install -r requirements.txt`
 
-## Look This [Example](blob/master/example.py) for more detail
+## Look This [Example](example.py) for more detail
  
 ## Author
 [Line](line.me/ti/p/~line.bngsad) | [Telegram](t.me/alnyz)
