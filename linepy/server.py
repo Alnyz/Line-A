@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from .config import Config
 import json, requests, urllib
-from hyper import HTTPConnection
+from hyper.contrib import HTTPAdapter
 
 class Server(Config):
 	def __init__(self, host=None, appType=None):
-		self.reqs = requests.Session()
-		self._session = HTTPConnection(host.replace("https://",""))
+		self._session = requests.Session()
+		self._session.mount("https://", HTTPAdapter())
+		self._session.mount("http://", HTTPAdapter())
 		self.timelineHeaders = {}
 		self.Headers = {}
 		Config.__init__(self, appType)
@@ -19,9 +20,9 @@ class Server(Config):
 
 	def getJson(self, url, allowHeader=False):		
 		if not allowHeader:
-			res = self.reqs.get(url, timeout=None)
+			res = self._session.get(url=url, timeout=None)
 		else:
-			res = self.reqs.get(url, headers=self.Headers, timeout=None)
+			res = self._session(url=url, headers=self.Headers, timeout=None)
 		return json.loads(res.text)
 
 	def setHeadersWithDict(self, headersDict):
@@ -45,27 +46,24 @@ class Server(Config):
 	def optionsContent(self, url, data=None, headers=None):
 		if headers is None:
 			headers=self.Headers
-		return self.request("OPTIONS", url, headers=headers, data=data)
+		return self._session.options(url, headers=headers, data=data)
 
-	def postContent(self, url, data=None, files=None, headers=None):
+	def postContent(self, url, data=None, headers=None, files=None):
+		if headers is None:
+			headers=self.Headers	
+		return self._session.post(url, headers=headers, data=data, files=files)
+		
+	def getContent(self, url, headers=None):	
 		if headers is None:
 			headers=self.Headers
-		return self.request("POST", url, headers=headers, data=data, files=files)
-
-	def getContent(self, url, headers=None):
-		if headers is None:
-			headers=self.Headers
-		return self.request("GET", url, headers=headers)
-
+		return self._session.get(url=url, headers=headers, stream=True)
+		
 	def deleteContent(self, url, data=None, headers=None):
 		if headers is None:
 			headers=self.Headers
-		return self.request("DELETE", url, headers=headers, data=data)
+		return self._session.delete(url=url, headers=headers, data=data)
 
 	def putContent(self, url, data=None, headers=None):
 		if headers is None:
 			headers=self.Headers
-		return self.request("PUT", url, headers=headers, data=data)
-
-	def request(self,method, url, data=None, headers=None):
-		self._session.request(method.upper(), url, body=data, headers=headers)
+		return self._session.put(url=url, headers=headers, data=data)
