@@ -70,7 +70,7 @@ class Object(object):
     def updateProfileCover(self, path, returnAs='bool'):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
-        objId = self.uploadObjHome(path, type='image', returnAs='objId')
+        objId = self.uploadObjHome(path, types='image', returnAs='objId')
         self.updateProfileCoverById(objId)
         if returnAs == 'objId':
             return objId
@@ -175,7 +175,7 @@ class Object(object):
             'name': '%s' % str(time.time()*1000),
             'userid': '%s' % self.profile.mid,
             'oid': '%s' % str(objId),
-            'type': type,
+            'type': types,
             'ver': '1.0'
         }
         hr = self.server.additionalHeaders(self.server.timelineHeaders, {
