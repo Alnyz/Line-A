@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from akad.ttypes import ApplicationType
-import re
+import re, os , platform
 
 class Config(object):
     LINE_HOST_DOMAIN            = 'https://gd2.line.naver.jp'
@@ -42,11 +42,10 @@ class Config(object):
         'WIN10': '5.5.5',
         'DEFAULT': '8.11.0'
     }
-
-    APP_TYPE    = 'IOSIPAD'
-    APP_VER     = "8.11.0"#APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
+    APP_TYPE    = 'IOS'
+    APP_VER     = "8.11.1" #APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
     CARRIER     = '51089, 1-0'
-    SYSTEM_NAME = 'FDLRCN'
+    SYSTEM_NAME = '{}-{}'.format(platform.python_implementation(), platform.python_version())
     SYSTEM_VER  = '7.0.0'
     IP_ADDR     = '8.8.8.8'
     EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")

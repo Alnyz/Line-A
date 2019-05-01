@@ -3,10 +3,9 @@ from .auth import Auth
 from .models import Models
 from .talk import Talk
 from .call import Call
-from .timeline import Timeline
 from .shop import Shop
 
-class LINE(Auth, Models, Talk, Call, Timeline, Shop):
+class LINE(Auth, Models, Talk, Call, Shop):
 
     def __init__(self, idOrAuthToken=None, passwd=None, **kwargs):
         """
@@ -50,5 +49,4 @@ class LINE(Auth, Models, Talk, Call, Timeline, Shop):
         Models.__init__(self)
         Talk.__init__(self)
         Call.__init__(self)
-        Timeline.__init__(self)
         Shop.__init__(self)

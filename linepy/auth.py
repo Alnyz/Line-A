@@ -3,6 +3,7 @@ from akad.ttypes import IdentityProvider, LoginResultType, LoginRequest, LoginTy
 from .server import Server
 from .session import Session
 from .callback import Callback
+from .config import Config
 
 import rsa, os
 
@@ -12,7 +13,8 @@ class Auth(object):
     certificate = ""
 
     def __init__(self):
-        self.server = Server(self.appType)
+        self.config = Config()
+        self.server = Server(host=self.config.LINE_HOST_DOMAIN, appType=self.appType)
         self.callback = Callback(self.__defaultCallback)
         self.server.setHeadersWithDict({
             'User-Agent': self.server.USER_AGENT,

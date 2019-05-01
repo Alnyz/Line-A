@@ -5,13 +5,12 @@ from .auth import Auth
 from .models import Models
 from .talk import Talk
 from .call import Call
-from .timeline import Timeline
 from .server import Server
 from .shop import Shop
 from .filters import Filters
 from akad.ttypes import OpType
 
-__modified__        = 'Dyseo'
+__modified__        = 'Dyseo x Zero Cool'
 __copyright__       = 'Copyright 2018 by Fadhiil Rachman'
 __version__         = '3.0.8'
 __license__         = 'BSD-3-Clause'
@@ -29,7 +28,6 @@ __all__ = [
  	'Auth',
  	'Talk',
  	'Call',
- 	'Timeline',
  	'Models',
  	'Shop',
  	'Server',
