@@ -121,7 +121,7 @@ class THttpClient(TTransportBase):
 
     def flush(self):
         if self.__custom_thrift:
-            if self.__loop <= 1:
+            if self.__loop <= 2:
                 if self.isOpen(): self.close()
                 self.open(); self.__loop += 1
             elif time.time() - self.__time > 90:
