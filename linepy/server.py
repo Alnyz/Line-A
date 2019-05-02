@@ -22,7 +22,7 @@ class Server(Config):
 		if not allowHeader:
 			res = self._session.get(url=url, timeout=None)
 		else:
-			res = self._session(url=url, headers=self.Headers, timeout=None)
+			res = self._session.get(url=url, headers=self.Headers, timeout=None)
 		return json.loads(res.text)
 
 	def setHeadersWithDict(self, headersDict):
