@@ -2,7 +2,7 @@ from linepy import LINE, OEPoll, Filters
 import time
 
 line = LINE("YOUR TOKEN")
-#pass withput any argument for login use QrCode -> LINE()
+#pass without any argument for login use QrCode -> LINE()
 route = OEPoll(line)
 
 @route.is_message(26, Filters.command("stest", prefix="."))
