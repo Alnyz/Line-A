@@ -19,7 +19,7 @@ class OEPoll(object):
 	def fetchOps(self, revision: int, count: int = 1):
 		return self.client.poll.fetchOperations(revision, count)
 
-	def is_message(self, types, *arg, **kwg):
+	def handler(self, types, *arg, **kwg):
 		def decorator(func):
 			@wraps(func)
 			def wraper(self, *args, **kwgs):
