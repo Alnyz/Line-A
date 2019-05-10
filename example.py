@@ -5,7 +5,7 @@ line = LINE("YOUR TOKEN")
 #pass without any argument for login use QrCode -> LINE()
 route = OEPoll(line)
 
-@route.is_message(26, Filters.command("stest", prefix="."))
+@route.handler(26, Filters.command("stest", prefix="."))
 def receive_command(ops):
 	#Fetch speed
 	rs = time.time()
