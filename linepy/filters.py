@@ -84,6 +84,10 @@ class Filters:
 	update_qr = create("UpdateQr", lambda _,m: bool(m.param3 == '4'))
 	update_all = create("UpdateAll", lambda _,m: bool(m.param3 in ["1", "2", "4"]))
 	
+        #event
+        flex = create("Flex", lambda _,m: bool(m.contentType == 22 and "FLEX_JSON" in m.contentMetadata.keys()))
+        image_carousel = create("ImageCarousel", lambda _,m: bool(Filters.html and m.contentMetadata["HTML_CONTENT"] != None))
+
 	@staticmethod
 	def command(commands: str or list,
 					prefix: str or list = "/",
