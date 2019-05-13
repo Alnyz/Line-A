@@ -3,6 +3,5 @@ requests
 thrift
 rsa
 PyQRCode
-pymongo
-pymongo[srv]
+hyper
 ffmpy
