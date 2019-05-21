@@ -51,7 +51,7 @@ class Filters:
 	create = create
 	
 	#content
-	text = create("Text", lambda _,m: bool(m.contentType == 0))
+	text = create("Text", lambda _,m: bool(m.contentType == 0 and m.text is not None))
 	image = create("Image", lambda _,m: bool(m.contentType == 1))
 	video = create("Video", lambda _,m: bool(m.contentType == 2))
 	audio = create("Audio", lambda _,m: bool(m.contentType == 3))
@@ -84,9 +84,9 @@ class Filters:
 	update_qr = create("UpdateQr", lambda _,m: bool(m.param3 == '4'))
 	update_all = create("UpdateAll", lambda _,m: bool(m.param3 in ["1", "2", "4"]))
 	
-        #event
-        flex = create("Flex", lambda _,m: bool(m.contentType == 22 and "FLEX_JSON" in m.contentMetadata.keys()))
-        image_carousel = create("ImageCarousel", lambda _,m: bool(Filters.html and m.contentMetadata["HTML_CONTENT"] != None))
+	#event
+	flex = create("Flex", lambda _,m: bool(m.contentType == 22 and "FLEX_JSON" in m.contentMetadata.keys()))
+	image_carousel = create("ImageCarousel", lambda _,m: bool(Filters.html and m.contentMetadata["HTML_CONTENT"] != None))
 
 	@staticmethod
 	def command(commands: str or list,
@@ -94,27 +94,26 @@ class Filters:
 					separator: str = " ",
 					case_sensitive: bool = True):
 		"""Filter commands, i.e.: text messages starting with "/" or any other custom prefix.
-
-        Args:
-            command (``str`` | ``list``):
-                The command or list of commands as string the filter should look for.
-                Examples: "start", ["start", "help", "settings"]. When a message text containing
-                a command arrives, the command itself and its arguments will be stored in the *command*
-                field of the :class:`Message <akad.ttypes.Message>`.
-
-            prefix (``str`` | ``list``, *optional*):
-                A prefix or a list of prefixes as string the filter should look for.
-                Defaults to "/" (slash). Examples: ".", "!", ["/", "!", "."].
-                Can be None or "" (empty string) to allow commands with no prefix at all.
-
-            separator (``str``, *optional*):
-                The command arguments separator. Defaults to " " (white space).
-                Examples: /start first second, /start-first-second, /start.first.second.
-
-            case_sensitive (``bool``, *optional*):
-                Pass True if you want your command(s) to be case sensitive. Defaults to False.
-                Examples: when True, command="Start" would trigger /Start but not /start.
-        """
+		        Args:
+		            command (``str`` | ``list``):
+		                The command or list of commands as string the filter should look for.
+		                Examples: "start", ["start", "help", "settings"]. When a message text containing
+		                a command arrives, the command itself and its arguments will be stored in the *command*
+		                field of the :class:`Message <akad.ttypes.Message>`.
+		
+		            prefix (``str`` | ``list``, *optional*):
+		                A prefix or a list of prefixes as string the filter should look for.
+		                Defaults to "/" (slash). Examples: ".", "!", ["/", "!", "."].
+		                Can be None or "" (empty string) to allow commands with no prefix at all.
+		
+		            separator (``str``, *optional*):
+		                The command arguments separator. Defaults to " " (white space).
+		                Examples: /start first second, /start-first-second, /start.first.second.
+		
+		            case_sensitive (``bool``, *optional*):
+		                Pass True if you want your command(s) to be case sensitive. Defaults to False.
+		                Examples: when True, command="Start" would trigger /Start but not /start.
+		        """
 		def f(_, m):
 			m.command = False
 			if m.text:
@@ -143,31 +142,29 @@ class Filters:
 	def regex(pattern, flags: int = 0):
 		"""Filter messages that match a given RegEx pattern.
 		
-		Args:
-			pattern (``str``):
-				The RegEx pattern as string, it will be applied to the text of a message. When a pattern matches,
-				all the `Match Objects <https://docs.python.org/3/library/re.html#match-objects>`
-			
-			flags (``int``, *optional*):
-				RegEx flags.
-		"""
-		
+			Args:
+				pattern (``str``):
+					The RegEx pattern as string, it will be applied to the text of a message. When a pattern matches,
+					all the `Match Objects <https://docs.python.org/3/library/re.html#match-objects>`
+				
+				flags (``int``, *optional*):
+					RegEx flags.
+		"""		
 		def f(_, m):		
 			m.matches = [i for i in _.p.finditer(m.text or "")]
 			return bool(m.matches)
 		return create("Regex", f, p=re.compile(pattern, flags))
         	
 	class user(Filter, set):
-		"""Filter messages coming from one or more users.
-		
-		You can use `set bound methods <https://docs.python.org/3/library/stdtypes.html#set>`_ to manipulate the
-		users container.
-
-        Args:
-            users (``str`` | ``list``):
-                Pass one or more user mid to filter users.
-                Defaults to None (no users).
-        """
+		"""Filter messages coming from one or more users.		
+			You can use `set bound methods <https://docs.python.org/3/library/stdtypes.html#set>`_ to manipulate the
+			users container.
+	
+	        Args:
+	            users (``str`` | ``list``):
+	                Pass one or more user mid to filter users.
+	                Defaults to None (no users).
+        	"""
 		def __init__(self, users: int or str or list = None):
 			users = [] if users is None else users if isinstance(users, list) else [users]
 			super().__init__(
@@ -186,15 +183,15 @@ class Filters:
 			
 	class chat(Filter, set):
 		"""Filter messages coming from one or more chats.
-		
-		You can use `set bound methods <https://docs.python.org/3/library/stdtypes.html#set>`_ to manipulate the
-		chats container.
-
-        Args:
-            chats (``str`` | ``list``):
-                Pass one or more chat mid to filter chats.
-                Defaults to None (no chats).
-        """
+	
+			You can use `set bound methods <https://docs.python.org/3/library/stdtypes.html#set>`_ to manipulate the
+			chats container.
+	
+	        Args:
+	            chats (``str`` | ``list``):
+	                Pass one or more chat mid to filter chats.
+	                Defaults to None (no chats).
+        	"""
 		def __init__(self, chats: int or str or list = None):
 			chats = [] if chats is None else chats if isinstance(chats, list) else [chats]
 			super().__init__(
