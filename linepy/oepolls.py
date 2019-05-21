@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from linepy import LINE
-from threading import Thread
+from . import LINE
+from .util import ThreadPool
 from functools import wraps
 import traceback
 import logging
@@ -8,14 +8,20 @@ import logging
 log = logging.getLogger(__name__)
 
 class OEPoll(object):
-	def __init__(self, client):
+	def __init__(self, client, workers=2, threaded=False):
 		if not isinstance(client, LINE):
 			raise Exception('You need to set LINE instance to initialize OEPoll')
 
 		self.client: LINE = client
 		self.func_handler : list = []
-		self.Opinterrupts: dict = []
-
+		self.Opinterrupts: list = []
+		self.workers = workers
+		self.pool = ThreadPool(num_threads=self.workers)
+		self.threaded = threaded
+		self.next_step_handlers = {}
+		self.next_step_saver = None
+		
+		
 	def fetchOps(self, revision: int, count: int = 1):
 		return self.client.poll.fetchOperations(revision, count)
 
@@ -46,14 +52,14 @@ class OEPoll(object):
 				else:
 					if self.func_handler[i][func][0] != None:
 						if self.func_handler[i][func][0](msg):
-							self.do_job( c=i, ops=ops)
+							self.do_job(c=i, ops=ops)
 
 	def do_job(self, ops, c):
-		try:
-			Thread(target=self.Opinterrupts[c][ops.type],args=(ops,)).start()
-		except Exception:
-			log.error(traceback.format_exc())
-
+		if self.threaded:
+			self.pool.put(self.Opinterrupts[c][ops.type], ops)
+		else:
+			self.Opinterrupts[c][ops.type](ops)
+			
 	def start(self):
 		while True:
 			self.trace()

@@ -11,8 +11,8 @@ def loggedIn(func):
 
 class Object(object):
 
-    def __init__(self):
-        if self.isLogin == True:
+    def __init__(self, display_notice=False):
+        if self.isLogin == True and display_notice:
             self.logs("[%s] : Login success" % self.profile.displayName)
 
 

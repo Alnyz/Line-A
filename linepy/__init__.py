@@ -1,6 +1,7 @@
 from .client import LINE
 from .channel import Channel
 from .oepolls import OEPoll
+from .util import ThreadPool
 from .auth import Auth
 from .models import Models
 from .talk import Talk
@@ -30,5 +31,6 @@ __all__ = [
  	'Call',
  	'Models',
  	'Shop',
+ 	'ThreadPool',
  	'Server',
  	]

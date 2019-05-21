@@ -4,7 +4,7 @@ from .models import Models
 from .talk import Talk
 from .call import Call
 from .shop import Shop
-
+from .object import Object
 class LINE(Auth, Models, Talk, Call, Shop):
 
     def __init__(self, idOrAuthToken=None, passwd=None, **kwargs):
@@ -31,6 +31,7 @@ class LINE(Auth, Models, Talk, Call, Shop):
         self.channelId = kwargs.pop('channelId', None)
         self.keepLoggedIn = kwargs.pop('keepLoggedIn', True)
         self.customThrift = kwargs.pop('customThrift', True)
+        self.display_notice = kwargs.get("display_notice", False)
         Auth.__init__(self)
         if not (idOrAuthToken or idOrAuthToken and passwd):
             self.loginWithQrCode()
@@ -50,3 +51,4 @@ class LINE(Auth, Models, Talk, Call, Shop):
         Talk.__init__(self)
         Call.__init__(self)
         Shop.__init__(self)
+        Object.__init__(self, display_notice=self.display_notice)
