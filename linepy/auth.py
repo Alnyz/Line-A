@@ -155,7 +155,7 @@ class Auth(object):
         self.callback.QrUrl('line://au/q/' + qrCode.verifier, self.showQr)
         self.server.setHeaders('X-Line-Access', qrCode.verifier)
 
-        getAccessKey = self.server.getJson(self.server.LINE_CERTIFICATE_PATH, allowHeader=True)
+        getAccessKey = self.server.getJson(self.server.parseUrl(self.server.LINE_CERTIFICATE_PATH), allowHeader=True)
 
         self.auth = Session(self.server.LINE_HOST_DOMAIN, self.server.Headers, self.server.LINE_LOGIN_QUERY_PATH).Auth(isopen=False)
 
